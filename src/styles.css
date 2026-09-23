@@ -740,3 +740,128 @@ tbody tr:hover {
     padding: 16px;
   }
 }
+
+/* Venn: slots categóricos 1-3 (os três primeiros validam em todos os pares, claro e escuro). */
+:root {
+  --series-3: #1baf7a;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --series-3: #199e70;
+  }
+}
+:root[data-theme="dark"] {
+  --series-3: #199e70;
+}
+.v1 {
+  --venn: var(--series-1);
+}
+.v2 {
+  --venn: var(--series-2);
+}
+.v3 {
+  --venn: var(--series-3);
+}
+.chip-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.chip {
+  font: inherit;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+.chip[aria-pressed="true"] {
+  border-color: var(--text-primary);
+  color: var(--text-primary);
+  font-weight: 600;
+}
+.chip:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.chip-meta {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+.chip-dot,
+.region-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--venn);
+  display: inline-block;
+}
+.region-dot.off {
+  background: var(--grid);
+}
+.region-dots {
+  display: inline-flex;
+  gap: 3px;
+  margin-right: 8px;
+  vertical-align: -1px;
+}
+.venn-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+@media (max-width: 860px) {
+  .venn-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.venn {
+  display: block;
+  width: 100%;
+  max-width: 560px;
+  height: auto;
+  margin: 0 auto;
+}
+.venn-circle {
+  fill: var(--venn);
+  fill-opacity: 0.22;
+  stroke: var(--venn);
+  stroke-width: 2;
+  transition: fill-opacity 0.12s;
+}
+.venn-circle.active {
+  fill-opacity: 0.38;
+}
+.venn-value {
+  font-size: 14px;
+  font-weight: 600;
+  fill: var(--text-primary);
+  pointer-events: none;
+  font-variant-numeric: tabular-nums;
+}
+.venn-set-label {
+  font-size: 13px;
+  fill: var(--text-secondary);
+  pointer-events: none;
+}
+.venn-key {
+  fill: var(--venn);
+}
+.venn-side {
+  display: grid;
+  gap: 12px;
+}
+.venn-table td:first-child {
+  white-space: normal;
+}
+.venn-empty {
+  padding: 24px 0;
+}
