@@ -51,7 +51,19 @@ export default function App() {
   );
 }
 
+/** Minúsculas e sem acento, para a busca ignorar os dois. */
+const normalize = (s: string) =>
+  s
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim();
+
 function Home({ notFound }: { notFound: boolean }) {
+  const [query, setQuery] = useState("");
+  const q = normalize(query);
+  const visible = q ? REPORTS.filter((r) => normalize(r.title).includes(q)) : REPORTS;
+
   return (
     <>
       <section className="hero">
@@ -59,19 +71,41 @@ function Home({ notFound }: { notFound: boolean }) {
         <p>Escolha um report, rode a query no AMC, exporte o resultado em CSV e suba aqui para ver gráficos e análises.</p>
       </section>
       {notFound && <p className="error">Report não encontrado.</p>}
-      <div className="report-grid">
-        {REPORTS.map((r) => (
-          <a key={r.id} href={`#/report/${r.id}`} className="report-card">
-            <h2>{r.title}</h2>
-            <p>{r.summary}</p>
-            <span className="tags">
-              {r.sources.map((s) => (
-                <code key={s}>{s}</code>
-              ))}
-            </span>
-          </a>
-        ))}
+      <div className="report-search">
+        <input
+          type="search"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          onKeyDown={(e) => {
+            // Enter com um único resultado abre o report.
+            if (e.key === "Enter" && visible.length === 1) window.location.hash = `#/report/${visible[0].id}`;
+          }}
+          placeholder="Buscar report pelo nome…"
+          aria-label="Buscar report pelo nome"
+        />
+        {q && (
+          <span className="muted" aria-live="polite">
+            {visible.length} de {REPORTS.length} report{REPORTS.length > 1 ? "s" : ""}
+          </span>
+        )}
       </div>
+      {visible.length > 0 ? (
+        <div className="report-grid">
+          {visible.map((r) => (
+            <a key={r.id} href={`#/report/${r.id}`} className="report-card">
+              <h2>{r.title}</h2>
+              <p>{r.summary}</p>
+              <span className="tags">
+                {r.sources.map((s) => (
+                  <code key={s}>{s}</code>
+                ))}
+              </span>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <p className="muted report-empty">Nenhum report com "{query.trim()}" no nome.</p>
+      )}
     </>
   );
 }

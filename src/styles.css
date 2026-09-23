@@ -148,6 +148,26 @@ main {
   color: var(--text-secondary);
 }
 
+.report-search {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.report-search input[type="search"] {
+  flex: 1 1 260px;
+  max-width: 420px;
+  padding: 9px 14px;
+  font-size: 0.95rem;
+  border-radius: 10px;
+}
+.report-search .muted {
+  font-size: 0.85rem;
+}
+.report-empty {
+  padding: 24px 0;
+}
 .report-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
