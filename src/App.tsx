@@ -33,6 +33,20 @@ export default function App() {
         </a>
       </header>
       <main>{report ? <ReportPage key={report.id} report={report} /> : <Home notFound={!!reportId} />}</main>
+      <footer className="site-footer">
+        <nav className="footer-pages" aria-label="Reports">
+          <a href="#/">Início</a>
+          {REPORTS.map((r) => (
+            <a key={r.id} href={`#/report/${r.id}`}>
+              {r.title}
+            </a>
+          ))}
+        </nav>
+        <div className="footer-offering">
+          <p>Esse site é um oferecimento de:</p>
+          <img src="capy-logo.webp" alt="Capy Games" className="footer-logo" />
+        </div>
+      </footer>
     </div>
   );
 }
