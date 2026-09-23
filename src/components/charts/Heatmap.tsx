@@ -3,7 +3,10 @@ import { truncate } from "../../lib/format";
 import { useTipProps } from "../Tooltip";
 
 interface Props {
+  /** Rótulos das linhas (e das colunas, se `colLabels` não for passado). */
   labels: string[];
+  /** Colunas diferentes das linhas (matriz retangular, sem diagonal). */
+  colLabels?: string[];
   /** Valor exibido em cada célula (ex.: % ou contagem). */
   value: (i: number, j: number) => number;
   /** Intensidade 0..1 da célula. */
@@ -18,17 +21,18 @@ const LABEL_W = 170;
 const HEADER_H = 120;
 
 /** Matriz de sobreposição com escala sequencial de um só tom (opacidade do azul sobre a superfície). */
-export function Heatmap({ labels, value, intensity, format, tooltip, diagonal }: Props) {
+export function Heatmap({ labels, colLabels, value, intensity, format, tooltip, diagonal }: Props) {
   const tip = useTipProps();
-  const n = labels.length;
+  const cols = colLabels ?? labels;
+  const square = !colLabels;
   // Folga à direita para os rótulos de coluna inclinados.
-  const width = LABEL_W + n * CELL + 110;
-  const height = HEADER_H + n * CELL + 4;
+  const width = LABEL_W + cols.length * CELL + 110;
+  const height = HEADER_H + labels.length * CELL + 4;
 
   return (
     <div className="chart-scroll">
       <svg className="heatmap" width={width} height={height} role="img" aria-label="Matriz de sobreposição entre anunciantes">
-        {labels.map((l, j) => (
+        {cols.map((l, j) => (
           <text
             key={`c${j}`}
             className="axis-label"
@@ -44,8 +48,8 @@ export function Heatmap({ labels, value, intensity, format, tooltip, diagonal }:
               <title>{l}</title>
               {truncate(l, 22)}
             </text>
-            {labels.map((_, j) => {
-              const isDiag = i === j;
+            {cols.map((_, j) => {
+              const isDiag = square && i === j;
               const t = isDiag ? 0 : Math.max(0, Math.min(1, intensity(i, j)));
               const x = LABEL_W + j * CELL;
               return (

@@ -14,6 +14,7 @@ O CSV é processado inteiramente no navegador; nenhum dado sai da máquina de qu
 |---|---|---|
 | Overlap entre anunciantes | `dsp_impressions` | Alcance exclusivo x compartilhado por anunciante, usuários por nº de anunciantes vistos, matriz de sobreposição entre pares (% e usuários, com Jaccard), diagrama de Venn com até 3 anunciantes à escolha, gráfico UpSet das combinações exatas, tabela de combinações e de campanhas. |
 | Path to Conversion | Template "Path to Conversion by Campaign Groups" | Filtro de texto que separa um grupo de pontos de contato (ex.: contém "DSP") e gera a planilha Full funnel / Só grupo / Sem grupo / Todos os outros sem grupo / demais permutações (download em CSV para Excel), taxa de compra com e sem cada ponto, primeiro e último toque, tamanho do caminho, sequência entre pontos, tabela de permutações e uma aba dedicada a NTB (aquisição de novos clientes). |
+| Vendas por estado | `amazon_attributed_events_by_conversion_time` | Mapa do Brasil por estado ou região (R$, pedidos, NTB, ticket, % do total, vendas por mil habitantes, índice vs população), ranking, tabela por região, concentração das vendas, índice vs população (IBGE, Censo 2022), ticket médio e % NTB por estado, anunciantes x região e tabela completa. |
 
 ## Rodando localmente
 
