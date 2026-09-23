@@ -19,6 +19,8 @@
   --cell-diag: #e1e0d9;
   --on-strong: #ffffff;
   --shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 4px 16px rgba(0, 0, 0, 0.04);
+  /* O logo da Capy é branco: no tema claro ele é invertido para preto. */
+  --logo-filter: invert(1);
   font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
@@ -43,6 +45,7 @@
     --cell-diag: #2c2c2a;
     --on-strong: #ffffff;
     --shadow: none;
+    --logo-filter: none;
   }
 }
 :root[data-theme="dark"] {
@@ -65,6 +68,7 @@
   --cell-diag: #2c2c2a;
   --on-strong: #ffffff;
   --shadow: none;
+  --logo-filter: none;
 }
 
 * {
@@ -175,8 +179,13 @@ main {
 }
 .tags {
   display: flex;
+  flex-wrap: wrap;
   gap: 6px;
   margin-top: auto;
+  min-width: 0;
+}
+.tags code {
+  overflow-wrap: anywhere;
 }
 
 .steps {
@@ -1261,4 +1270,58 @@ tbody tr:hover {
 .segmented button:disabled {
   opacity: 0.45;
   cursor: not-allowed;
+}
+
+/* Rodapé (mesmo desenho do pareador.capygames.com.br) */
+.site-footer {
+  width: calc(100% - 48px);
+  max-width: 1152px;
+  margin: 0 auto;
+  padding: 24px 0 40px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-pages {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+.footer-pages a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+.footer-pages a:hover {
+  color: var(--text-primary);
+}
+.footer-offering {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.footer-offering p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+.footer-logo {
+  height: 74px;
+  width: auto;
+  margin-top: 10px;
+  filter: var(--logo-filter);
+}
+@media (max-width: 640px) {
+  .site-footer {
+    justify-content: center;
+    text-align: center;
+    width: calc(100% - 32px);
+    padding: 24px 0 32px;
+  }
+  .footer-pages {
+    justify-content: center;
+  }
 }
