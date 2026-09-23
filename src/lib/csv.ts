@@ -93,3 +93,22 @@ export function parseCount(cell: string): number {
   const digits = cell.replace(/[^\d-]/g, "");
   return digits === "" || digits === "-" ? NaN : Number(digits);
 }
+
+/**
+ * Número decimal tolerante a formato: "1234.56" (AMC), "1.234,56" / "887,67" (Excel pt-BR) e "1,234.56".
+ * Vazio vira NaN.
+ */
+export function parseNumber(cell: string): number {
+  let s = cell.trim().replace(/\s/g, "");
+  if (s === "") return NaN;
+  const lastDot = s.lastIndexOf(".");
+  const lastComma = s.lastIndexOf(",");
+  if (lastDot >= 0 && lastComma >= 0) {
+    // O separador que aparece por último é o decimal.
+    s = lastComma > lastDot ? s.replace(/\./g, "").replace(",", ".") : s.replace(/,/g, "");
+  } else if (lastComma >= 0) {
+    s = /^-?\d{1,3}(,\d{3})+$/.test(s) ? s.replace(/,/g, "") : s.replace(",", ".");
+  }
+  const n = Number(s);
+  return Number.isFinite(n) ? n : NaN;
+}

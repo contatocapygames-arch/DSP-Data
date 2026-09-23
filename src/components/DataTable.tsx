@@ -1,4 +1,5 @@
 import { useMemo, useState, type ReactNode } from "react";
+import { downloadCsv } from "../lib/exportCsv";
 
 export interface Column<T> {
   key: string;
@@ -18,14 +19,6 @@ interface Props<T> {
   pageSize?: number;
 }
 
-function toCsv<T>(rows: T[], columns: Column<T>[]): string {
-  const esc = (v: string | number) => {
-    const s = String(v);
-    return /[",\n;]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
-  };
-  return [columns.map((c) => esc(c.label)).join(","), ...rows.map((r) => columns.map((c) => esc(c.value(r))).join(","))].join("\n");
-}
-
 export function DataTable<T>({ rows, columns, searchText, initialSort, exportName, pageSize = 25 }: Props<T>) {
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState<{ key: string; desc: boolean }>({ key: initialSort, desc: true });
@@ -43,14 +36,12 @@ export function DataTable<T>({ rows, columns, searchText, initialSort, exportNam
     });
   }, [rows, columns, query, sort, searchText]);
 
-  const download = () => {
-    const blob = new Blob(["﻿" + toCsv(filtered, columns)], { type: "text/csv;charset=utf-8" });
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = `${exportName}.csv`;
-    a.click();
-    URL.revokeObjectURL(a.href);
-  };
+  const download = () =>
+    downloadCsv(
+      exportName,
+      columns.map((c) => c.label),
+      filtered.map((r) => columns.map((c) => c.value(r))),
+    );
 
   return (
     <div className="data-table">

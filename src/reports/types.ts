@@ -16,7 +16,10 @@ export interface ReportDefinition {
   description: string;
   /** Tabelas do AMC que a query usa. */
   sources: string[];
-  query: string;
+  /** Query SQL para copiar. Sem ela, a página mostra `instructions`. */
+  query?: string;
+  /** Como gerar o CSV no AMC quando o report vem de um template (sem query própria). */
+  instructions?: string;
   expectedColumns: string[];
   /** Lê a tabela do CSV. Lança ReportParseError quando o arquivo não é deste report. */
   process: (table: CsvTable) => ProcessedReport;
