@@ -232,3 +232,19 @@ export function buildInsights(a: OverlapAnalysis): Insight[] {
   }
   return out;
 }
+
+/**
+ * Usuários em cada região do Venn dos anunciantes selecionados, como bitmask (bit i = selected[i]).
+ * A região considera só a seleção: "só A" = viu A e nenhum outro selecionado (pode ter visto anunciantes fora dela).
+ */
+export function vennRegions(combos: ComboStat[], selected: string[]): Map<number, number> {
+  const regions = new Map<number, number>();
+  for (const c of combos) {
+    let mask = 0;
+    selected.forEach((s, i) => {
+      if (c.advertisers.includes(s)) mask |= 1 << i;
+    });
+    if (mask !== 0) regions.set(mask, (regions.get(mask) ?? 0) + c.users);
+  }
+  return regions;
+}

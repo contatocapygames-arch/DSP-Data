@@ -12,7 +12,7 @@ O CSV é processado inteiramente no navegador; nenhum dado sai da máquina de qu
 
 | Report | Tabela AMC | O que mostra |
 |---|---|---|
-| Overlap entre anunciantes | `dsp_impressions` | Alcance exclusivo x compartilhado por anunciante, usuários por nº de anunciantes vistos, matriz de sobreposição entre pares (% e usuários, com Jaccard), gráfico UpSet das combinações exatas, tabela de combinações e de campanhas. |
+| Overlap entre anunciantes | `dsp_impressions` | Alcance exclusivo x compartilhado por anunciante, usuários por nº de anunciantes vistos, matriz de sobreposição entre pares (% e usuários, com Jaccard), diagrama de Venn com até 3 anunciantes à escolha, gráfico UpSet das combinações exatas, tabela de combinações e de campanhas. |
 
 ## Rodando localmente
 

@@ -5,6 +5,7 @@ import { UpSet } from "../../components/charts/UpSet";
 import { DataTable, type Column } from "../../components/DataTable";
 import { StatTiles } from "../../components/StatTiles";
 import { formatCompact, formatInt, formatPct } from "../../lib/format";
+import { VennSection } from "./VennSection";
 import { analyzeOverlap, buildInsights, type CampaignStat, type ComboStat, type OverlapRow } from "./analyze";
 
 const MAX_MATRIX = 15;
@@ -174,6 +175,8 @@ export function AdvertiserOverlapDashboard({ rows }: { rows: OverlapRow[] }) {
           />
         </section>
       )}
+
+      {a.advertisers.length > 1 && <VennSection advertisers={a.advertisers} combos={a.combos} />}
 
       <section className="card">
         <header className="with-controls">

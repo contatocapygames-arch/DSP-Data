@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { parseCsv } from "../../../lib/csv";
 import { ReportParseError } from "../../types";
-import { analyzeOverlap, buildInsights, parseOverlapTable } from "../analyze";
+import { analyzeOverlap, buildInsights, parseOverlapTable, vennRegions } from "../analyze";
 
 const CSV = `advertiser_combination,campaign_id_combination,campaign_name_combination,advertiser_count,unique_users
 "[""A""]","[""1""]","[""A1""]",1,100
@@ -60,5 +60,14 @@ describe("advertiser overlap", () => {
 
   it("rejeita CSV sem as colunas exigidas", () => {
     expect(() => parseOverlapTable(parseCsv("foo,bar\n1,2"))).toThrow(ReportParseError);
+  });
+});
+
+describe("vennRegions", () => {
+  it("agrupa por anunciantes selecionados ignorando os demais", () => {
+    const { rows } = parseOverlapTable(parseCsv(CSV));
+    const regions = vennRegions(analyzeOverlap(rows).combos, ["A", "C"]);
+    // A sozinho (150) + A∩B sem C (30) contam como "só A" dentro da seleção.
+    expect(Object.fromEntries(regions)).toEqual({ 1: 180, 3: 20 });
   });
 });

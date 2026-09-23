@@ -24,9 +24,11 @@ export function TooltipProvider({ children }: { children: ReactNode }) {
           className="tooltip"
           role="tooltip"
           style={{
-            left: tip.x + (flipX ? -12 : 12),
+            ...(flipX
+              ? { right: window.innerWidth - tip.x + 12, maxWidth: Math.min(280, tip.x - 20) }
+              : { left: tip.x + 12, maxWidth: Math.min(280, window.innerWidth - tip.x - 24) }),
             top: tip.y + (flipY ? -12 : 12),
-            transform: `translate(${flipX ? "-100%" : "0"}, ${flipY ? "-100%" : "0"})`,
+            transform: flipY ? "translateY(-100%)" : undefined,
           }}
         >
           {tip.content}
