@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { columnIndex, parseArrayCell, parseCount, parseCsv } from "../csv";
+import { columnIndex, parseArrayCell, parseCount, parseCsv, parseNumber } from "../csv";
 
 describe("parseCsv", () => {
   it("lê campos com aspas, vírgulas e aspas escapadas", () => {
@@ -30,5 +30,16 @@ describe("parseCount", () => {
   it("ignora separadores de milhar", () => {
     expect(parseCount("12,345")).toBe(12345);
     expect(parseCount("")).toBeNaN();
+  });
+});
+
+describe("parseNumber", () => {
+  it("aceita formatos AMC, pt-BR e en-US", () => {
+    expect(parseNumber("207.92554")).toBeCloseTo(207.92554);
+    expect(parseNumber("1.234,56")).toBeCloseTo(1234.56);
+    expect(parseNumber("887,67")).toBeCloseTo(887.67);
+    expect(parseNumber("1,234.5")).toBeCloseTo(1234.5);
+    expect(parseNumber("12,345")).toBe(12345);
+    expect(parseNumber("")).toBeNaN();
   });
 });

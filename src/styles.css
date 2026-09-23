@@ -865,3 +865,153 @@ tbody tr:hover {
 .venn-empty {
   padding: 24px 0;
 }
+
+.bar-group {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+.bar-stack.thin {
+  height: 10px;
+}
+
+.filter-rules {
+  display: grid;
+  gap: 8px;
+}
+.filter-rule {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.filter-rule input[type="text"],
+.filter-name input {
+  font: inherit;
+  font-size: 0.875rem;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-primary);
+  min-width: 0;
+  flex: 1 1 180px;
+  max-width: 320px;
+}
+.filter-join {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  width: 28px;
+}
+.filter-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.filter-name {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-left: auto;
+}
+.btn.icon {
+  padding: 4px 10px;
+  line-height: 1;
+}
+.filter-result {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--grid);
+  display: grid;
+  gap: 8px;
+  font-size: 0.85rem;
+}
+.touch-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.touch-chip {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  background: var(--surface-2);
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+.touch-chip.in {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 14%, var(--surface));
+  color: var(--text-primary);
+  font-weight: 600;
+}
+.touch-chip.small {
+  padding: 1px 7px;
+  font-size: 0.75rem;
+}
+.path-chips {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px 2px;
+  align-items: center;
+  max-width: 560px;
+}
+.path-step {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+.path-sep {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  padding: 0 1px;
+}
+.tabs {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid var(--border);
+  margin: 8px 0 0;
+  overflow-x: auto;
+}
+.tabs button {
+  font: inherit;
+  font-weight: 600;
+  font-size: 0.95rem;
+  background: none;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  color: var(--text-secondary);
+  padding: 10px 14px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.tabs button[aria-selected="true"] {
+  color: var(--text-primary);
+  border-bottom-color: var(--accent);
+}
+.period {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+.seg-table td:first-child {
+  min-width: 220px;
+}
+.seg-table tr.total td {
+  font-weight: 650;
+  background: var(--surface-2);
+}
+.seg-table tr.subset td:first-child {
+  padding-left: 26px;
+}
+.seg-desc {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 400;
+}

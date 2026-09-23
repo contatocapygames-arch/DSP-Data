@@ -13,6 +13,7 @@ O CSV é processado inteiramente no navegador; nenhum dado sai da máquina de qu
 | Report | Tabela AMC | O que mostra |
 |---|---|---|
 | Overlap entre anunciantes | `dsp_impressions` | Alcance exclusivo x compartilhado por anunciante, usuários por nº de anunciantes vistos, matriz de sobreposição entre pares (% e usuários, com Jaccard), diagrama de Venn com até 3 anunciantes à escolha, gráfico UpSet das combinações exatas, tabela de combinações e de campanhas. |
+| Path to Conversion | Template "Path to Conversion by Campaign Groups" | Filtro de texto que separa um grupo de pontos de contato (ex.: contém "DSP") e gera a planilha Full funnel / Só grupo / Sem grupo / Todos os outros sem grupo / demais permutações (download em CSV para Excel), taxa de compra com e sem cada ponto, primeiro e último toque, tamanho do caminho, sequência entre pontos, tabela de permutações e uma aba dedicada a NTB (aquisição de novos clientes). |
 
 ## Rodando localmente
 
@@ -31,7 +32,7 @@ O workflow `.github/workflows/deploy-pages.yml` publica no GitHub Pages a cada p
 ## Adicionando um report novo
 
 1. Crie `src/reports/<nome>/` com:
-   - `query.ts`: a query do AMC;
+   - `query.ts`: a query do AMC (ou `instructions` no `ReportDefinition`, quando o report vem de um template do AMC);
    - `analyze.ts`: leitura das colunas do CSV (`parseCsv`, `columnIndex`, `parseArrayCell`) e os cálculos;
    - `Dashboard.tsx`: os gráficos (reaproveite `BarList`, `Heatmap`, `UpSet`, `StatTiles`, `DataTable`);
    - `index.tsx`: um `ReportDefinition` ligando tudo.

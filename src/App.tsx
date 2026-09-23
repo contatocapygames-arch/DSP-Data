@@ -89,12 +89,21 @@ function ReportPage({ report }: { report: ReportDefinition }) {
       {!result && (
         <ol className="steps">
           <li>
-            <h2>Rode esta query no AMC</h2>
-            <p>
-              Cole no editor de queries do AMC e defina o período na própria interface do AMC. Exporte o resultado como CSV sem renomear as
-              colunas.
-            </p>
-            <QueryBlock query={report.query} />
+            {report.query ? (
+              <>
+                <h2>Rode esta query no AMC</h2>
+                <p>
+                  Cole no editor de queries do AMC e defina o período na própria interface do AMC. Exporte o resultado como CSV sem renomear as
+                  colunas.
+                </p>
+                <QueryBlock query={report.query} />
+              </>
+            ) : (
+              <>
+                <h2>Rode o template no AMC</h2>
+                <p>{report.instructions}</p>
+              </>
+            )}
           </li>
           <li>
             <h2>Suba o CSV do resultado</h2>
@@ -120,10 +129,12 @@ function ReportPage({ report }: { report: ReportDefinition }) {
               Arquivo: <strong>{result.fileName}</strong>
             </span>
             <span className="file-actions">
-              <details>
-                <summary className="btn ghost">Ver query</summary>
-                <QueryBlock query={report.query} />
-              </details>
+              {report.query && (
+                <details>
+                  <summary className="btn ghost">Ver query</summary>
+                  <QueryBlock query={report.query} />
+                </details>
+              )}
               <button type="button" className="btn" onClick={() => setResult(null)}>
                 Trocar arquivo
               </button>
