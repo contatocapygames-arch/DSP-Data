@@ -1,4 +1,4 @@
-import { BRAZIL_POPULATION, REGIONS, toUf, UFS, type RegionId } from "../../lib/brazil";
+import { COUNTRIES, countryPopulation, resolveState, type CountryDef } from "../../lib/geo";
 import { columnIndex, parseNumber, type CsvTable } from "../../lib/csv";
 import { ReportParseError } from "../types";
 
@@ -12,14 +12,18 @@ export interface StateMetrics {
 export interface StateRow {
   /** Chave do anunciante: o advertiser_id (ou o nome, se o CSV não trouxer o ID). */
   advertiser: string;
-  uf: string;
+  /** País (ISO alfa-2) e código do estado sem o prefixo. */
+  country: string;
+  state: string;
   metrics: StateMetrics;
 }
 
 export interface ParsedStates {
   rows: StateRow[];
   advertisers: AdvertiserInfo[];
-  /** Linhas com código que não é UF brasileira (outros países ou código desconhecido). */
+  /** Países com dados, na ordem de COUNTRIES. */
+  countries: string[];
+  /** Linhas com código de estado não suportado (outros países ou código desconhecido). */
   unmatched: { code: string; metrics: StateMetrics }[];
   warnings: string[];
 }
@@ -70,8 +74,8 @@ export function parseStatesTable(table: CsvTable): ParsedStates {
       sales: num(r, "total_sales"),
       ntbSales: num(r, "ntb_sales"),
     };
-    const uf = toUf(code);
-    if (!uf) {
+    const resolved = resolveState(code);
+    if (!resolved) {
       if (code) unmatchedMap.set(code, add(unmatchedMap.get(code) ?? emptyStateMetrics(), metrics));
       continue;
     }
@@ -79,10 +83,12 @@ export function parseStatesTable(table: CsvTable): ParsedStates {
     const id = text(r, "advertiser_id");
     const key = id || name || "Anunciante";
     if (!advertiserMap.has(key)) advertiserMap.set(key, { key, name: name || id || "Anunciante", id, label: name && id ? `${name} (${id})` : name || id || "Anunciante" });
-    rows.push({ advertiser: key, uf, metrics });
+    rows.push({ advertiser: key, country: resolved.country.id, state: resolved.code, metrics });
   }
   if (rows.length === 0) {
-    throw new ReportParseError("Nenhuma linha com estado brasileiro reconhecido (esperado iso_state_province_code como BR-SP ou SP).");
+    throw new ReportParseError(
+      `Nenhuma linha com estado reconhecido. Países suportados: ${COUNTRIES.map((c) => c.name).join(", ")} (iso_state_province_code como BR-SP ou MX-CMX).`,
+    );
   }
 
   const unmatched = [...unmatchedMap.entries()].map(([code, metrics]) => ({ code, metrics })).sort((a, b) => b.metrics.sales - a.metrics.sales);
@@ -90,44 +96,60 @@ export function parseStatesTable(table: CsvTable): ParsedStates {
   if (unmatched.length > 0) {
     const sales = unmatched.reduce((s, u) => s + u.metrics.sales, 0);
     warnings.push(
-      `${unmatched.length} código(s) fora das UFs brasileiras ficaram de fora do mapa (${unmatched
+      `${unmatched.length} código(s) de estado fora dos países suportados ficaram de fora (${unmatched
         .slice(0, 5)
         .map((u) => u.code)
-        .join(", ")}${unmatched.length > 5 ? "…" : ""}), somando ${sales.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })} em vendas.`,
+        .join(", ")}${unmatched.length > 5 ? "…" : ""}), somando ${sales.toLocaleString("pt-BR", { maximumFractionDigits: 2 })} em vendas.`,
     );
   }
   const advertisers = [...advertiserMap.values()].sort((a, b) => a.name.localeCompare(b.name, "pt-BR") || a.id.localeCompare(b.id));
-  return { rows, advertisers, unmatched, warnings };
+  const present = new Set(rows.map((r) => r.country));
+  const countries = COUNTRIES.filter((c) => present.has(c.id)).map((c) => c.id);
+  return { rows, advertisers, countries, unmatched, warnings };
 }
 
 export interface AreaStat {
   id: string;
   name: string;
-  region: RegionId;
+  region: string;
   population: number;
+  /** Participação na população do país (0..1). */
+  popShare: number;
   metrics: StateMetrics;
 }
 
 export interface StatesAnalysis {
   total: StateMetrics;
-  /** As 27 UFs, com zero onde não houve venda. */
+  /** Todos os estados do país, com zero onde não houve venda. */
   states: AreaStat[];
   regions: AreaStat[];
 }
 
-/** `advertiser` é a chave (advertiser_id); null = todos. */
-export function analyzeStates(rows: StateRow[], advertiser: string | null): StatesAnalysis {
-  const byUf = new Map(UFS.map((u) => [u.uf, emptyStateMetrics()]));
-  for (const r of rows) if (advertiser === null || r.advertiser === advertiser) add(byUf.get(r.uf)!, r.metrics);
-
-  const states: AreaStat[] = UFS.map((u) => ({ id: u.uf, name: u.name, region: u.region, population: u.population, metrics: byUf.get(u.uf)! }));
-  const regions: AreaStat[] = REGIONS.map((reg) => {
+/** Agrega um país; `advertiser` é a chave (advertiser_id) ou null para todos. */
+export function analyzeStates(rows: StateRow[], country: CountryDef, advertiser: string | null): StatesAnalysis {
+  const byState = new Map(country.states.map((u) => [u.code, emptyStateMetrics()]));
+  for (const r of rows) {
+    if (r.country !== country.id || (advertiser !== null && r.advertiser !== advertiser)) continue;
+    add(byState.get(r.state)!, r.metrics);
+  }
+  const pop = countryPopulation(country);
+  const states: AreaStat[] = country.states.map((u) => ({
+    id: u.code,
+    name: u.name,
+    region: u.region,
+    population: u.population,
+    popShare: u.population / pop,
+    metrics: byState.get(u.code)!,
+  }));
+  const regions: AreaStat[] = country.regions.map((reg) => {
     const members = states.filter((s) => s.region === reg.id);
+    const population = members.reduce((s, m) => s + m.population, 0);
     return {
       id: reg.id,
       name: reg.name,
       region: reg.id,
-      population: members.reduce((s, m) => s + m.population, 0),
+      population,
+      popShare: population / pop,
       metrics: members.reduce((m, s) => add(m, s.metrics), emptyStateMetrics()),
     };
   });
@@ -142,8 +164,7 @@ export const ntbOrdersShare = (m: StateMetrics) => ratio(m.ntbOrders, m.orders);
 /** Vendas por mil habitantes. */
 export const salesPerThousand = (a: AreaStat) => ratio(a.metrics.sales * 1000, a.population);
 /** Índice de penetração: participação nas vendas / participação na população x 100 (100 = proporcional). */
-export const penetrationIndex = (a: AreaStat, total: StateMetrics) =>
-  ratio(ratio(a.metrics.sales, total.sales) * 100, a.population / BRAZIL_POPULATION);
+export const penetrationIndex = (a: AreaStat, total: StateMetrics) => ratio(ratio(a.metrics.sales, total.sales) * 100, a.popShare);
 
 /** Quantas áreas (da maior para a menor) somam a fração pedida das vendas. */
 export function areasToReach(areas: AreaStat[], share: number): number {

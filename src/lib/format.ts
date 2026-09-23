@@ -37,9 +37,9 @@ export function formatMoneyFull(n: number): string {
   return n.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
-/** Reais: compacto ("R$ 1,2 mi") por padrão, completo ("R$ 12.345,67") para tabelas. */
-export function formatBRL(n: number, compact = true): string {
+/** Moeda: compacta ("R$ 1,2 mi") por padrão, completa ("R$ 12.345,67") para tabelas. */
+export function formatCurrency(n: number, symbol: string, compact = true): string {
   if (!Number.isFinite(n)) return "-";
-  if (compact && Math.abs(n) >= 10000) return `R$ ${compactFmt.format(n)}`;
-  return n.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+  if (compact && Math.abs(n) >= 10000) return `${symbol} ${compactFmt.format(n)}`;
+  return `${symbol} ${n.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 }

@@ -1017,7 +1017,7 @@ tbody tr:hover {
   font-weight: 400;
 }
 
-.brazil-map svg {
+.country-map svg {
   display: block;
   width: 100%;
   max-width: 620px;
@@ -1127,8 +1127,15 @@ tbody tr:hover {
   gap: 24px;
   align-items: start;
 }
+.map-layout.wide {
+  grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr);
+}
+.map-layout.wide .country-map svg {
+  max-width: none;
+}
 @media (max-width: 900px) {
-  .map-layout {
+  .map-layout,
+  .map-layout.wide {
     grid-template-columns: minmax(0, 1fr);
   }
 }
