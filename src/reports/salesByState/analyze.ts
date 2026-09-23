@@ -10,6 +10,7 @@ export interface StateMetrics {
 }
 
 export interface StateRow {
+  /** Chave do anunciante: o advertiser_id (ou o nome, se o CSV não trouxer o ID). */
   advertiser: string;
   uf: string;
   metrics: StateMetrics;
@@ -17,10 +18,18 @@ export interface StateRow {
 
 export interface ParsedStates {
   rows: StateRow[];
-  advertisers: string[];
+  advertisers: AdvertiserInfo[];
   /** Linhas com código que não é UF brasileira (outros países ou código desconhecido). */
   unmatched: { code: string; metrics: StateMetrics }[];
   warnings: string[];
+}
+
+export interface AdvertiserInfo {
+  key: string;
+  name: string;
+  id: string;
+  /** "Nome (ID)": o mesmo nome pode existir em mais de um advertiser_id. */
+  label: string;
 }
 
 export const REQUIRED_COLUMNS = ["iso_state_province_code", "total_conversions", "total_sales"];
@@ -51,6 +60,7 @@ export function parseStatesTable(table: CsvTable): ParsedStates {
   const text = (r: string[], c: string) => (idx(c) >= 0 ? (r[idx(c)] ?? "").trim() : "");
 
   const rows: StateRow[] = [];
+  const advertiserMap = new Map<string, AdvertiserInfo>();
   const unmatchedMap = new Map<string, StateMetrics>();
   for (const r of table.rows) {
     const code = text(r, "iso_state_province_code");
@@ -65,8 +75,11 @@ export function parseStatesTable(table: CsvTable): ParsedStates {
       if (code) unmatchedMap.set(code, add(unmatchedMap.get(code) ?? emptyStateMetrics(), metrics));
       continue;
     }
-    const advertiser = text(r, "advertiser") || text(r, "advertiser_id") || "Anunciante";
-    rows.push({ advertiser, uf, metrics });
+    const name = text(r, "advertiser");
+    const id = text(r, "advertiser_id");
+    const key = id || name || "Anunciante";
+    if (!advertiserMap.has(key)) advertiserMap.set(key, { key, name: name || id || "Anunciante", id, label: name && id ? `${name} (${id})` : name || id || "Anunciante" });
+    rows.push({ advertiser: key, uf, metrics });
   }
   if (rows.length === 0) {
     throw new ReportParseError("Nenhuma linha com estado brasileiro reconhecido (esperado iso_state_province_code como BR-SP ou SP).");
@@ -83,7 +96,7 @@ export function parseStatesTable(table: CsvTable): ParsedStates {
         .join(", ")}${unmatched.length > 5 ? "…" : ""}), somando ${sales.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })} em vendas.`,
     );
   }
-  const advertisers = [...new Set(rows.map((r) => r.advertiser))].sort((a, b) => a.localeCompare(b, "pt-BR"));
+  const advertisers = [...advertiserMap.values()].sort((a, b) => a.name.localeCompare(b.name, "pt-BR") || a.id.localeCompare(b.id));
   return { rows, advertisers, unmatched, warnings };
 }
 
@@ -102,6 +115,7 @@ export interface StatesAnalysis {
   regions: AreaStat[];
 }
 
+/** `advertiser` é a chave (advertiser_id); null = todos. */
 export function analyzeStates(rows: StateRow[], advertiser: string | null): StatesAnalysis {
   const byUf = new Map(UFS.map((u) => [u.uf, emptyStateMetrics()]));
   for (const r of rows) if (advertiser === null || r.advertiser === advertiser) add(byUf.get(r.uf)!, r.metrics);
