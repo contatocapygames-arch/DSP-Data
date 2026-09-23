@@ -1,12 +1,12 @@
 import { useMemo, useState } from "react";
 import { BarList } from "../../components/charts/BarList";
-import { BrazilMap } from "../../components/charts/BrazilMap";
+import { CountryMap } from "../../components/charts/CountryMap";
 import { Heatmap } from "../../components/charts/Heatmap";
 import { IndexBars } from "../../components/charts/IndexBars";
 import { DataTable, type Column } from "../../components/DataTable";
 import { StatTiles } from "../../components/StatTiles";
-import { BRAZIL_POPULATION, REGION_BY_ID } from "../../lib/brazil";
-import { formatBRL, formatCompact, formatInt, formatPct, formatShare } from "../../lib/format";
+import { COUNTRY_BY_ID, regionName, type CountryDef } from "../../lib/geo";
+import { formatCompact, formatCurrency, formatInt, formatPct, formatShare } from "../../lib/format";
 import {
   analyzeStates,
   areasToReach,
@@ -31,29 +31,61 @@ interface MetricDef {
   format: (v: number) => string;
 }
 
-const METRICS: Record<MetricKey, MetricDef> = {
-  sales: { label: "Vendas (R$)", additive: true, value: (a) => a.metrics.sales, format: (v) => formatBRL(v) },
+type Money = (v: number, compact?: boolean) => string;
+const moneyFor =
+  (c: CountryDef): Money =>
+  (v, compact = true) =>
+    formatCurrency(v, c.currencySymbol, compact);
+const formatIndex = (v: number) => (Number.isFinite(v) ? Math.round(v).toString() : "-");
+
+const metricsFor = (money: Money, sym: string): Record<MetricKey, MetricDef> => ({
+  sales: { label: `Vendas (${sym})`, additive: true, value: (a) => a.metrics.sales, format: (v) => money(v) },
   orders: { label: "Pedidos", additive: true, value: (a) => a.metrics.orders, format: formatCompact },
-  ntbSales: { label: "Vendas NTB (R$)", additive: true, value: (a) => a.metrics.ntbSales, format: (v) => formatBRL(v) },
+  ntbSales: { label: `Vendas NTB (${sym})`, additive: true, value: (a) => a.metrics.ntbSales, format: (v) => money(v) },
   ntbOrders: { label: "Pedidos NTB", additive: true, value: (a) => a.metrics.ntbOrders, format: formatCompact },
-  ticket: { label: "Ticket médio (R$)", additive: false, value: (a) => ticket(a.metrics), format: (v) => formatBRL(v, false) },
+  ticket: { label: `Ticket médio (${sym})`, additive: false, value: (a) => ticket(a.metrics), format: (v) => money(v, false) },
   ntbSalesShare: { label: "% NTB nas vendas", additive: false, value: (a) => ntbSalesShare(a.metrics), format: (v) => formatPct(v) },
   ntbOrdersShare: { label: "% NTB nos pedidos", additive: false, value: (a) => ntbOrdersShare(a.metrics), format: (v) => formatPct(v) },
-  perCapita: { label: "Vendas por mil habitantes (R$)", additive: false, value: salesPerThousand, format: (v) => formatBRL(v, false) },
-  index: { label: "Índice vs população (100 = proporcional)", additive: false, value: penetrationIndex, format: (v) => (Number.isFinite(v) ? Math.round(v).toString() : "-") },
-};
+  perCapita: { label: `Vendas por mil habitantes (${sym})`, additive: false, value: salesPerThousand, format: (v) => money(v, false) },
+  index: { label: "Índice vs população (100 = proporcional)", additive: false, value: penetrationIndex, format: formatIndex },
+});
 
 /** Para % do total, divide pelo total da mesma métrica. */
 const totalOf = (key: MetricKey, total: StateMetrics) =>
   key === "sales" ? total.sales : key === "orders" ? total.orders : key === "ntbSales" ? total.ntbSales : total.ntbOrders;
 
 export function SalesByStateDashboard({ data }: { data: ParsedStates }) {
+  const [countryId, setCountryId] = useState(data.countries[0]);
+  const country = COUNTRY_BY_ID.get(countryId)!;
+  return (
+    <div className="dashboard">
+      {data.countries.length > 1 && (
+        <div className="tabs" role="tablist">
+          {data.countries.map((id) => (
+            <button key={id} type="button" role="tab" aria-selected={id === countryId} onClick={() => setCountryId(id)}>
+              {COUNTRY_BY_ID.get(id)!.name}
+            </button>
+          ))}
+        </div>
+      )}
+      <CountryView key={countryId} data={data} country={country} />
+    </div>
+  );
+}
+
+function CountryView({ data, country }: { data: ParsedStates; country: CountryDef }) {
+  const money = moneyFor(country);
+  const METRICS = metricsFor(money, country.currencySymbol);
+  const advertisers = useMemo(() => {
+    const present = new Set(data.rows.filter((r) => r.country === country.id).map((r) => r.advertiser));
+    return data.advertisers.filter((ad) => present.has(ad.key));
+  }, [data, country.id]);
   const [advertiser, setAdvertiser] = useState<string | null>(null);
   const [view, setView] = useState<View>("state");
   const [metric, setMetric] = useState<MetricKey>("sales");
   const [asShare, setAsShare] = useState(false);
 
-  const a = useMemo(() => analyzeStates(data.rows, advertiser), [data.rows, advertiser]);
+  const a = useMemo(() => analyzeStates(data.rows, country, advertiser), [data.rows, country, advertiser]);
   const def = METRICS[metric];
   const share = asShare && def.additive;
   const areas = view === "state" ? a.states : a.regions;
@@ -72,36 +104,36 @@ export function SalesByStateDashboard({ data }: { data: ParsedStates }) {
         {view === "state" ? ` (${x.id})` : ""}
       </strong>
       <div>
-        Vendas: {formatBRL(x.metrics.sales, false)} ({formatShare(x.metrics.sales / a.total.sales)})
+        Vendas: {money(x.metrics.sales, false)} ({formatShare(x.metrics.sales / a.total.sales)})
       </div>
       <div>
         Pedidos: {formatInt(x.metrics.orders)} ({formatShare(x.metrics.orders / a.total.orders)})
       </div>
-      <div>Ticket médio: {formatBRL(ticket(x.metrics), false)}</div>
+      <div>Ticket médio: {money(ticket(x.metrics), false)}</div>
       <div>% NTB nas vendas: {formatPct(ntbSalesShare(x.metrics))}</div>
-      <div>Índice vs população: {METRICS.index.format(penetrationIndex(x, a.total))}</div>
+      <div>Índice vs população: {formatIndex(penetrationIndex(x, a.total))}</div>
     </>
   );
 
   const ranking = [...areas].sort((p, q) => (valueOf(q) || 0) - (valueOf(p) || 0)).filter((x) => x.metrics.orders > 0 || view === "region");
   const top = [...a.states].sort((p, q) => q.metrics.sales - p.metrics.sales);
   const topRegion = [...a.regions].sort((p, q) => q.metrics.sales - p.metrics.sales)[0];
-  const indexCandidates = withSales.filter((s) => s.population >= BRAZIL_POPULATION * 0.005);
+  const indexCandidates = withSales.filter((s) => s.popShare >= 0.005);
   const bestIndex = [...indexCandidates].sort((p, q) => penetrationIndex(q, a.total) - penetrationIndex(p, a.total))[0];
   const bestNtb = [...withSales]
     .filter((s) => s.metrics.orders >= a.total.orders * 0.01)
     .sort((p, q) => ntbSalesShare(q.metrics) - ntbSalesShare(p.metrics))[0];
 
   return (
-    <div className="dashboard">
+    <>
       <section className="card">
         <div className="filters-row">
-          {data.advertisers.length > 1 && (
+          {advertisers.length > 1 && (
             <label>
               Anunciante
               <select value={advertiser ?? ""} onChange={(e) => setAdvertiser(e.target.value || null)}>
-                <option value="">Todos ({data.advertisers.length})</option>
-                {data.advertisers.map((ad) => (
+                <option value="">Todos ({advertisers.length})</option>
+                {advertisers.map((ad) => (
                   <option key={ad.key} value={ad.key}>
                     {ad.label}
                   </option>
@@ -150,8 +182,8 @@ export function SalesByStateDashboard({ data }: { data: ParsedStates }) {
           <article className="insight">
             <h3>Concentração</h3>
             <p>
-              {areasToReach(a.states, 0.5)} estado(s) somam metade das vendas e {areasToReach(a.states, 0.8)} somam 80%. {withSales.length} de 27
-              UFs tiveram venda.
+              {areasToReach(a.states, 0.5)} estado(s) somam metade das vendas e {areasToReach(a.states, 0.8)} somam 80%. {withSales.length} de{" "}
+              {country.states.length} estados tiveram venda.
             </p>
           </article>
           {bestIndex && (
@@ -176,12 +208,12 @@ export function SalesByStateDashboard({ data }: { data: ParsedStates }) {
 
       <StatTiles
         stats={[
-          { label: "Vendas", value: formatBRL(a.total.sales), note: formatBRL(a.total.sales, false) },
+          { label: "Vendas", value: money(a.total.sales), note: money(a.total.sales, false) },
           { label: "Pedidos", value: formatCompact(a.total.orders), note: formatInt(a.total.orders) },
-          { label: "Ticket médio", value: formatBRL(ticket(a.total), false) },
-          { label: "% NTB nas vendas", value: formatPct(ntbSalesShare(a.total)), note: formatBRL(a.total.ntbSales, false) },
+          { label: "Ticket médio", value: money(ticket(a.total), false) },
+          { label: "% NTB nas vendas", value: formatPct(ntbSalesShare(a.total)), note: money(a.total.ntbSales, false) },
           { label: "% NTB nos pedidos", value: formatPct(ntbOrdersShare(a.total)), note: `${formatInt(a.total.ntbOrders)} pedidos` },
-          { label: "UFs com venda", value: `${withSales.length} / 27` },
+          { label: "Estados com venda", value: `${withSales.length} / ${country.states.length}` },
         ]}
       />
 
@@ -193,8 +225,9 @@ export function SalesByStateDashboard({ data }: { data: ParsedStates }) {
           </h2>
           <p>Passe o mouse no mapa ou no ranking para ver todas as métricas da área.</p>
         </header>
-        <div className="map-layout">
-          <BrazilMap
+        <div className={`map-layout ${country.width / country.height > 1.3 ? "wide" : ""}`}>
+          <CountryMap
+            country={country}
             mode={view}
             value={(id) => {
               const x = areaById.get(id);
@@ -229,7 +262,7 @@ export function SalesByStateDashboard({ data }: { data: ParsedStates }) {
           <h2>Regiões</h2>
           <p>Índice = participação nas vendas / participação na população (IBGE, Censo 2022) x 100. Acima de 100, a região vende mais que o seu peso populacional.</p>
         </header>
-        <RegionTable regions={a.regions} total={a.total} />
+        <RegionTable regions={a.regions} total={a.total} money={money} />
       </section>
 
       <div className="grid-2">
@@ -274,14 +307,14 @@ export function SalesByStateDashboard({ data }: { data: ParsedStates }) {
         <section className="card">
           <header>
             <h2>Ticket médio por estado</h2>
-            <p>Vendas / pedidos. Média geral: {formatBRL(ticket(a.total), false)}.</p>
+            <p>Vendas / pedidos. Média geral: {money(ticket(a.total), false)}.</p>
           </header>
           <BarList
             items={[...withSales]
               .sort((p, q) => ticket(q.metrics) - ticket(p.metrics))
               .map((s) => ({
                 label: `${s.id} · ${s.name}`,
-                valueLabel: formatBRL(ticket(s.metrics), false),
+                valueLabel: money(ticket(s.metrics), false),
                 segments: [{ key: "v", value: ticket(s.metrics), series: 1 }],
                 tooltip: areaTooltip(s),
               }))}
@@ -305,26 +338,26 @@ export function SalesByStateDashboard({ data }: { data: ParsedStates }) {
         </section>
       </div>
 
-      {data.advertisers.length > 1 && advertiser === null && <AdvertiserSection data={data} />}
+      {advertisers.length > 1 && advertiser === null && <AdvertiserSection data={data} country={country} advertisers={advertisers} money={money} />}
 
       <section className="card">
         <header>
           <h2>Tabela por estado</h2>
         </header>
-        <StateTable states={a.states} total={a.total} />
+        <StateTable states={a.states} total={a.total} country={country} money={money} />
       </section>
 
       <p className="footnote">
-        Vendas e pedidos atribuídos pelo AMC (amazon_attributed_events_by_conversion_time), pelo estado do endereço do cliente. População: IBGE,
-        Censo 2022. Mapa: @svg-maps/brazil (Victor Cazanave, CC BY 4.0).
+        Vendas e pedidos atribuídos pelo AMC (amazon_attributed_events_by_conversion_time), pelo estado do endereço do cliente, na moeda da
+        conta ({country.currency}). {country.sources}
       </p>
-    </div>
+    </>
   );
 }
 
 const formatMultipleX = (v: number) => `${v.toLocaleString("pt-BR", { maximumFractionDigits: 1 })}x`;
 
-function RegionTable({ regions, total }: { regions: AreaStat[]; total: StateMetrics }) {
+function RegionTable({ regions, total, money }: { regions: AreaStat[]; total: StateMetrics; money: Money }) {
   return (
     <div className="table-scroll">
       <table>
@@ -347,14 +380,14 @@ function RegionTable({ regions, total }: { regions: AreaStat[]; total: StateMetr
             .map((r) => (
               <tr key={r.id}>
                 <td>{r.name}</td>
-                <td className="num">{formatBRL(r.metrics.sales, false)}</td>
+                <td className="num">{money(r.metrics.sales, false)}</td>
                 <td className="num">{formatShare(r.metrics.sales / total.sales)}</td>
                 <td className="num">{formatInt(r.metrics.orders)}</td>
                 <td className="num">{formatShare(r.metrics.orders / total.orders)}</td>
-                <td className="num">{formatBRL(ticket(r.metrics), false)}</td>
+                <td className="num">{money(ticket(r.metrics), false)}</td>
                 <td className="num">{formatPct(ntbSalesShare(r.metrics))}</td>
-                <td className="num">{formatPct(r.population / BRAZIL_POPULATION)}</td>
-                <td className="num">{METRICS.index.format(penetrationIndex(r, total))}</td>
+                <td className="num">{formatPct(r.popShare)}</td>
+                <td className="num">{formatIndex(penetrationIndex(r, total))}</td>
               </tr>
             ))}
         </tbody>
@@ -363,30 +396,40 @@ function RegionTable({ regions, total }: { regions: AreaStat[]; total: StateMetr
   );
 }
 
-function StateTable({ states, total }: { states: AreaStat[]; total: StateMetrics }) {
+function StateTable({ states, total, country, money }: { states: AreaStat[]; total: StateMetrics; country: CountryDef; money: Money }) {
   const cols: Column<AreaStat>[] = [
-    { key: "uf", label: "UF", value: (s) => s.id, render: (s) => s.id },
+    { key: "uf", label: "Sigla", value: (s) => s.id, render: (s) => s.id },
     { key: "name", label: "Estado", value: (s) => s.name, render: (s) => s.name },
-    { key: "region", label: "Região", value: (s) => REGION_BY_ID.get(s.region)!.name, render: (s) => REGION_BY_ID.get(s.region)!.name },
-    { key: "sales", label: "Vendas (R$)", numeric: true, value: (s) => s.metrics.sales, render: (s) => formatBRL(s.metrics.sales, false) },
+    { key: "region", label: "Região", value: (s) => regionName(country, s.region), render: (s) => regionName(country, s.region) },
+    { key: "sales", label: `Vendas (${country.currencySymbol})`, numeric: true, value: (s) => s.metrics.sales, render: (s) => money(s.metrics.sales, false) },
     { key: "salesShare", label: "% vendas", numeric: true, value: (s) => s.metrics.sales / total.sales, render: (s) => formatShare(s.metrics.sales / total.sales) },
     { key: "orders", label: "Pedidos", numeric: true, value: (s) => s.metrics.orders, render: (s) => formatInt(s.metrics.orders) },
     { key: "ordersShare", label: "% pedidos", numeric: true, value: (s) => s.metrics.orders / total.orders, render: (s) => formatShare(s.metrics.orders / total.orders) },
-    { key: "ticket", label: "Ticket médio", numeric: true, value: (s) => ticket(s.metrics), render: (s) => formatBRL(ticket(s.metrics), false) },
-    { key: "ntbSales", label: "Vendas NTB (R$)", numeric: true, value: (s) => s.metrics.ntbSales, render: (s) => formatBRL(s.metrics.ntbSales, false) },
+    { key: "ticket", label: "Ticket médio", numeric: true, value: (s) => ticket(s.metrics), render: (s) => money(ticket(s.metrics), false) },
+    { key: "ntbSales", label: `Vendas NTB (${country.currencySymbol})`, numeric: true, value: (s) => s.metrics.ntbSales, render: (s) => money(s.metrics.ntbSales, false) },
     { key: "ntbShare", label: "% NTB vendas", numeric: true, value: (s) => ntbSalesShare(s.metrics), render: (s) => formatPct(ntbSalesShare(s.metrics)) },
     { key: "ntbOrders", label: "Pedidos NTB", numeric: true, value: (s) => s.metrics.ntbOrders, render: (s) => formatInt(s.metrics.ntbOrders) },
     { key: "ntbOrdersShare", label: "% NTB pedidos", numeric: true, value: (s) => ntbOrdersShare(s.metrics), render: (s) => formatPct(ntbOrdersShare(s.metrics)) },
-    { key: "perCapita", label: "R$ / mil hab.", numeric: true, value: salesPerThousand, render: (s) => formatBRL(salesPerThousand(s), false) },
-    { key: "index", label: "Índice", numeric: true, value: (s) => penetrationIndex(s, total), render: (s) => METRICS.index.format(penetrationIndex(s, total)) },
+    { key: "perCapita", label: `${country.currencySymbol} / mil hab.`, numeric: true, value: salesPerThousand, render: (s) => money(salesPerThousand(s), false) },
+    { key: "index", label: "Índice", numeric: true, value: (s) => penetrationIndex(s, total), render: (s) => formatIndex(penetrationIndex(s, total)) },
   ];
-  return <DataTable rows={states} columns={cols} searchText={(s) => `${s.id} ${s.name} ${REGION_BY_ID.get(s.region)!.name}`} initialSort="sales" exportName="vendas-por-estado" pageSize={27} />;
+  return <DataTable rows={states} columns={cols} searchText={(s) => `${s.id} ${s.name} ${regionName(country, s.region)}`} initialSort="sales" exportName={`vendas-por-estado-${country.id.toLowerCase()}`} pageSize={country.states.length} />;
 }
 
-function AdvertiserSection({ data }: { data: ParsedStates }) {
+function AdvertiserSection({
+  data,
+  country,
+  advertisers,
+  money,
+}: {
+  data: ParsedStates;
+  country: CountryDef;
+  advertisers: ParsedStates["advertisers"];
+  money: Money;
+}) {
   const stats = useMemo(
-    () => data.advertisers.map((ad) => ({ name: ad.label, ...analyzeStates(data.rows, ad.key) })).sort((p, q) => q.total.sales - p.total.sales),
-    [data],
+    () => advertisers.map((ad) => ({ name: ad.label, ...analyzeStates(data.rows, country, ad.key) })).sort((p, q) => q.total.sales - p.total.sales),
+    [data, country, advertisers],
   );
   const regionNames = stats[0].regions.map((r) => r.name);
   const pct = (i: number, j: number) => stats[i].regions[j].metrics.sales / stats[i].total.sales || 0;
@@ -409,7 +452,7 @@ function AdvertiserSection({ data }: { data: ParsedStates }) {
             <strong>
               {stats[i].name} · {regionNames[j]}
             </strong>
-            <div>{formatBRL(stats[i].regions[j].metrics.sales, false)}</div>
+            <div>{money(stats[i].regions[j].metrics.sales, false)}</div>
             <div>{formatPct(pct(i, j))} das vendas do anunciante</div>
           </>
         )}
