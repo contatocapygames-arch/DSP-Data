@@ -9,6 +9,7 @@ Marca A,1,BR-SP,100,40,40.0,10000.50,4000,40.0
 Marca A,1,BR-RJ,50,10,20.0,4000,800,20.0
 Marca A,1,BR-BA,20,15,75.0,1500,1000,66.6
 Marca B,2,BR-SP,10,5,50.0,900,450,50.0
+Marca B,3,BR-SP,7,2,28.5,700,200,28.5
 Marca B,2,US-CA,3,1,33.3,300,100,33.3
 `;
 
@@ -23,8 +24,8 @@ describe("vendas por estado", () => {
   });
 
   it("lê linhas e separa códigos fora do Brasil", () => {
-    expect(parsed.rows).toHaveLength(4);
-    expect(parsed.advertisers).toEqual(["Marca A", "Marca B"]);
+    expect(parsed.rows).toHaveLength(5);
+    expect(parsed.advertisers.map((a) => a.label)).toEqual(["Marca A (1)", "Marca B (2)", "Marca B (3)"]);
     expect(parsed.unmatched).toEqual([{ code: "US-CA", metrics: { orders: 3, ntbOrders: 1, sales: 300, ntbSales: 100 } }]);
     expect(parsed.warnings[0]).toContain("US-CA");
   });
@@ -32,14 +33,16 @@ describe("vendas por estado", () => {
   it("agrega por estado, região e anunciante", () => {
     const all = analyzeStates(parsed.rows, null);
     expect(all.states).toHaveLength(27);
-    expect(all.total.sales).toBeCloseTo(16400.5);
-    expect(all.states.find((s) => s.id === "SP")!.metrics.orders).toBe(110);
-    expect(all.regions.find((r) => r.id === "SE")!.metrics.sales).toBeCloseTo(14900.5);
+    expect(all.total.sales).toBeCloseTo(17100.5);
+    expect(all.states.find((s) => s.id === "SP")!.metrics.orders).toBe(117);
+    expect(all.regions.find((r) => r.id === "SE")!.metrics.sales).toBeCloseTo(15600.5);
     expect(all.regions.find((r) => r.id === "N")!.metrics.sales).toBe(0);
 
-    const b = analyzeStates(parsed.rows, "Marca B");
+    // Mesmo nome, IDs diferentes: cada ID é um anunciante.
+    const b = analyzeStates(parsed.rows, "2");
     expect(b.total.sales).toBe(900);
     expect(ticket(b.total)).toBe(90);
+    expect(analyzeStates(parsed.rows, "3").total.sales).toBe(700);
   });
 
   it("índice de penetração e concentração", () => {
@@ -47,7 +50,7 @@ describe("vendas por estado", () => {
     const sp = all.states.find((s) => s.id === "SP")!;
     expect(penetrationIndex(sp, all.total)).toBeGreaterThan(100);
     expect(areasToReach(all.states, 0.6)).toBe(1);
-    expect(areasToReach(all.states, 0.9)).toBe(2);
+    expect(areasToReach(all.states, 0.95)).toBe(3);
   });
 
   it("rejeita CSV sem colunas", () => {

@@ -102,8 +102,8 @@ export function SalesByStateDashboard({ data }: { data: ParsedStates }) {
               <select value={advertiser ?? ""} onChange={(e) => setAdvertiser(e.target.value || null)}>
                 <option value="">Todos ({data.advertisers.length})</option>
                 {data.advertisers.map((ad) => (
-                  <option key={ad} value={ad}>
-                    {ad}
+                  <option key={ad.key} value={ad.key}>
+                    {ad.label}
                   </option>
                 ))}
               </select>
@@ -385,7 +385,7 @@ function StateTable({ states, total }: { states: AreaStat[]; total: StateMetrics
 
 function AdvertiserSection({ data }: { data: ParsedStates }) {
   const stats = useMemo(
-    () => data.advertisers.map((ad) => ({ name: ad, ...analyzeStates(data.rows, ad) })).sort((p, q) => q.total.sales - p.total.sales),
+    () => data.advertisers.map((ad) => ({ name: ad.label, ...analyzeStates(data.rows, ad.key) })).sort((p, q) => q.total.sales - p.total.sales),
     [data],
   );
   const regionNames = stats[0].regions.map((r) => r.name);
