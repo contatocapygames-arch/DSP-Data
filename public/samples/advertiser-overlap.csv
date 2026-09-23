@@ -1,0 +1,216 @@
+advertiser_combination,campaign_id_combination,campaign_name_combination,advertiser_count,unique_users
+"[""Marca Gama""]","[""3001""]","[""Gama | Always On""]",1,113183
+"[""Marca Alpha""]","[""1001"", ""1002""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing""]",1,104969
+"[""Marca Beta""]","[""2001"", ""2002""]","[""Beta | Lançamento"", ""Beta | Prospecting""]",1,80512
+"[""Marca Alpha""]","[""1001""]","[""Alpha | Awareness | Q3""]",1,69375
+"[""Marca Alpha""]","[""1002""]","[""Alpha | Remarketing""]",1,69338
+"[""Marca Épsilon""]","[""5001""]","[""Épsilon | Awareness""]",1,61568
+"[""Marca Beta""]","[""2001""]","[""Beta | Prospecting""]",1,56018
+"[""Marca Delta""]","[""4001"", ""4002""]","[""Delta | Black Friday"", ""Delta | Retargeting""]",1,54871
+"[""Marca Beta""]","[""2002""]","[""Beta | Lançamento""]",1,54501
+"[""Marca Delta""]","[""4002""]","[""Delta | Retargeting""]",1,38073
+"[""Marca Delta""]","[""4001""]","[""Delta | Black Friday""]",1,36889
+"[""Marca Zeta""]","[""6001""]","[""Zeta | Performance""]",1,36889
+"[""Marca Alpha"", ""Marca Beta""]","[""1001"", ""1002"", ""2001"", ""2002""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Beta | Lançamento"", ""Beta | Prospecting""]",2,19203
+"[""Marca Delta"", ""Marca Gama""]","[""3001"", ""4001"", ""4002""]","[""Delta | Black Friday"", ""Delta | Retargeting"", ""Gama | Always On""]",2,15355
+"[""Marca Alpha"", ""Marca Beta""]","[""1001"", ""2001"", ""2002""]","[""Alpha | Awareness | Q3"", ""Beta | Lançamento"", ""Beta | Prospecting""]",2,13690
+"[""Marca Alpha"", ""Marca Beta""]","[""1002"", ""2001"", ""2002""]","[""Alpha | Remarketing"", ""Beta | Lançamento"", ""Beta | Prospecting""]",2,12839
+"[""Marca Alpha"", ""Marca Beta""]","[""1001"", ""1002"", ""2002""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Beta | Lançamento""]",2,12432
+"[""Marca Alpha"", ""Marca Gama""]","[""1001"", ""1002"", ""3001""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Gama | Always On""]",2,11803
+"[""Marca Alpha"", ""Marca Beta""]","[""1001"", ""1002"", ""2001""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Beta | Prospecting""]",2,11729
+"[""Marca Delta"", ""Marca Gama""]","[""3001"", ""4001""]","[""Delta | Black Friday"", ""Gama | Always On""]",2,10952
+"[""Marca Delta"", ""Marca Gama""]","[""3001"", ""4002""]","[""Delta | Retargeting"", ""Gama | Always On""]",2,10841
+"[""Marca Alpha"", ""Marca Beta""]","[""1002"", ""2002""]","[""Alpha | Remarketing"", ""Beta | Lançamento""]",2,9324
+"[""Marca Alpha"", ""Marca Beta""]","[""1001"", ""2002""]","[""Alpha | Awareness | Q3"", ""Beta | Lançamento""]",2,8806
+"[""Marca Alpha"", ""Marca Beta""]","[""1001"", ""2001""]","[""Alpha | Awareness | Q3"", ""Beta | Prospecting""]",2,8769
+"[""Marca Alpha"", ""Marca Beta""]","[""1002"", ""2001""]","[""Alpha | Remarketing"", ""Beta | Prospecting""]",2,8621
+"[""Marca Beta"", ""Marca Gama""]","[""2001"", ""2002"", ""3001""]","[""Beta | Lançamento"", ""Beta | Prospecting"", ""Gama | Always On""]",2,8436
+"[""Marca Alpha"", ""Marca Gama""]","[""1002"", ""3001""]","[""Alpha | Remarketing"", ""Gama | Always On""]",2,7992
+"[""Marca Alpha"", ""Marca Gama""]","[""1001"", ""3001""]","[""Alpha | Awareness | Q3"", ""Gama | Always On""]",2,7696
+"[""Marca Gama"", ""Marca Épsilon""]","[""3001"", ""5001""]","[""Gama | Always On"", ""Épsilon | Awareness""]",2,6993
+"[""Marca Beta"", ""Marca Gama""]","[""2001"", ""3001""]","[""Beta | Prospecting"", ""Gama | Always On""]",2,6623
+"[""Marca Alpha"", ""Marca Épsilon""]","[""1001"", ""1002"", ""5001""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Épsilon | Awareness""]",2,6623
+"[""Marca Beta"", ""Marca Gama""]","[""2002"", ""3001""]","[""Beta | Lançamento"", ""Gama | Always On""]",2,5624
+"[""Marca Alpha"", ""Marca Delta""]","[""1001"", ""1002"", ""4001"", ""4002""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Delta | Black Friday"", ""Delta | Retargeting""]",2,5476
+"[""Marca Beta"", ""Marca Épsilon""]","[""2001"", ""2002"", ""5001""]","[""Beta | Lançamento"", ""Beta | Prospecting"", ""Épsilon | Awareness""]",2,4995
+"[""Marca Alpha"", ""Marca Épsilon""]","[""1001"", ""5001""]","[""Alpha | Awareness | Q3"", ""Épsilon | Awareness""]",2,4625
+"[""Marca Beta"", ""Marca Épsilon""]","[""2002"", ""5001""]","[""Beta | Lançamento"", ""Épsilon | Awareness""]",2,4218
+"[""Marca Beta"", ""Marca Delta""]","[""2001"", ""2002"", ""4001"", ""4002""]","[""Beta | Lançamento"", ""Beta | Prospecting"", ""Delta | Black Friday"", ""Delta | Retargeting""]",2,3996
+"[""Marca Alpha"", ""Marca Épsilon""]","[""1002"", ""5001""]","[""Alpha | Remarketing"", ""Épsilon | Awareness""]",2,3774
+"[""Marca Gama"", ""Marca Zeta""]","[""3001"", ""6001""]","[""Gama | Always On"", ""Zeta | Performance""]",2,3663
+"[""Marca Alpha"", ""Marca Delta""]","[""1001"", ""4001"", ""4002""]","[""Alpha | Awareness | Q3"", ""Delta | Black Friday"", ""Delta | Retargeting""]",2,3589
+"[""Marca Delta"", ""Marca Épsilon""]","[""4001"", ""4002"", ""5001""]","[""Delta | Black Friday"", ""Delta | Retargeting"", ""Épsilon | Awareness""]",2,3552
+"[""Marca Alpha"", ""Marca Delta""]","[""1001"", ""1002"", ""4001""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Delta | Black Friday""]",2,3515
+"[""Marca Beta"", ""Marca Épsilon""]","[""2001"", ""5001""]","[""Beta | Prospecting"", ""Épsilon | Awareness""]",2,3330
+"[""Marca Beta"", ""Marca Delta""]","[""2001"", ""2002"", ""4002""]","[""Beta | Lançamento"", ""Beta | Prospecting"", ""Delta | Retargeting""]",2,3145
+"[""Marca Alpha"", ""Marca Zeta""]","[""1001"", ""1002"", ""6001""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Zeta | Performance""]",2,2997
+"[""Marca Beta"", ""Marca Zeta""]","[""2001"", ""2002"", ""6001""]","[""Beta | Lançamento"", ""Beta | Prospecting"", ""Zeta | Performance""]",2,2960
+"[""Marca Alpha"", ""Marca Delta""]","[""1002"", ""4001"", ""4002""]","[""Alpha | Remarketing"", ""Delta | Black Friday"", ""Delta | Retargeting""]",2,2923
+"[""Marca Alpha"", ""Marca Delta""]","[""1001"", ""1002"", ""4002""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Delta | Retargeting""]",2,2849
+"[""Marca Alpha"", ""Marca Delta""]","[""1002"", ""4001""]","[""Alpha | Remarketing"", ""Delta | Black Friday""]",2,2812
+"[""Marca Alpha"", ""Marca Delta""]","[""1002"", ""4002""]","[""Alpha | Remarketing"", ""Delta | Retargeting""]",2,2664
+"[""Marca Beta"", ""Marca Delta""]","[""2001"", ""4001"", ""4002""]","[""Beta | Prospecting"", ""Delta | Black Friday"", ""Delta | Retargeting""]",2,2627
+"[""Marca Beta"", ""Marca Delta""]","[""2001"", ""2002"", ""4001""]","[""Beta | Lançamento"", ""Beta | Prospecting"", ""Delta | Black Friday""]",2,2590
+"[""Marca Alpha"", ""Marca Zeta""]","[""1001"", ""6001""]","[""Alpha | Awareness | Q3"", ""Zeta | Performance""]",2,2553
+"[""Marca Alpha"", ""Marca Zeta""]","[""1002"", ""6001""]","[""Alpha | Remarketing"", ""Zeta | Performance""]",2,2516
+"[""Marca Beta"", ""Marca Delta""]","[""2002"", ""4001"", ""4002""]","[""Beta | Lançamento"", ""Delta | Black Friday"", ""Delta | Retargeting""]",2,2516
+"[""Marca Alpha"", ""Marca Delta""]","[""1001"", ""4002""]","[""Alpha | Awareness | Q3"", ""Delta | Retargeting""]",2,2479
+"[""Marca Beta"", ""Marca Zeta""]","[""2001"", ""6001""]","[""Beta | Prospecting"", ""Zeta | Performance""]",2,2331
+"[""Marca Beta"", ""Marca Zeta""]","[""2002"", ""6001""]","[""Beta | Lançamento"", ""Zeta | Performance""]",2,2257
+"[""Marca Delta"", ""Marca Épsilon""]","[""4001"", ""5001""]","[""Delta | Black Friday"", ""Épsilon | Awareness""]",2,2220
+"[""Marca Alpha"", ""Marca Delta""]","[""1001"", ""4001""]","[""Alpha | Awareness | Q3"", ""Delta | Black Friday""]",2,2220
+"[""Marca Beta"", ""Marca Delta""]","[""2001"", ""4001""]","[""Beta | Prospecting"", ""Delta | Black Friday""]",2,2109
+"[""Marca Beta"", ""Marca Delta""]","[""2002"", ""4001""]","[""Beta | Lançamento"", ""Delta | Black Friday""]",2,2072
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Gama""]","[""1001"", ""1002"", ""2001"", ""2002"", ""3001""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Beta | Lançamento"", ""Beta | Prospecting"", ""Gama | Always On""]",3,1924
+"[""Marca Delta"", ""Marca Zeta""]","[""4001"", ""4002"", ""6001""]","[""Delta | Black Friday"", ""Delta | Retargeting"", ""Zeta | Performance""]",2,1850
+"[""Marca Beta"", ""Marca Delta""]","[""2002"", ""4002""]","[""Beta | Lançamento"", ""Delta | Retargeting""]",2,1850
+"[""Marca Delta"", ""Marca Épsilon""]","[""4002"", ""5001""]","[""Delta | Retargeting"", ""Épsilon | Awareness""]",2,1813
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Gama""]","[""1001"", ""1002"", ""2001"", ""3001""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Beta | Prospecting"", ""Gama | Always On""]",3,1702
+"[""Marca Zeta"", ""Marca Épsilon""]","[""5001"", ""6001""]","[""Zeta | Performance"", ""Épsilon | Awareness""]",2,1628
+"[""Marca Beta"", ""Marca Delta""]","[""2001"", ""4002""]","[""Beta | Prospecting"", ""Delta | Retargeting""]",2,1591
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Gama""]","[""1002"", ""2001"", ""2002"", ""3001""]","[""Alpha | Remarketing"", ""Beta | Lançamento"", ""Beta | Prospecting"", ""Gama | Always On""]",3,1554
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Épsilon""]","[""1001"", ""1002"", ""2001"", ""2002"", ""5001""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Beta | Lançamento"", ""Beta | Prospecting"", ""Épsilon | Awareness""]",3,1517
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Gama""]","[""1001"", ""2001"", ""2002"", ""3001""]","[""Alpha | Awareness | Q3"", ""Beta | Lançamento"", ""Beta | Prospecting"", ""Gama | Always On""]",3,1443
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Gama""]","[""1001"", ""1002"", ""2002"", ""3001""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Beta | Lançamento"", ""Gama | Always On""]",3,1406
+"[""Marca Alpha"", ""Marca Delta"", ""Marca Gama""]","[""1001"", ""1002"", ""3001"", ""4002""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Delta | Retargeting"", ""Gama | Always On""]",3,1295
+"[""Marca Delta"", ""Marca Zeta""]","[""4002"", ""6001""]","[""Delta | Retargeting"", ""Zeta | Performance""]",2,1258
+"[""Marca Alpha"", ""Marca Delta"", ""Marca Gama""]","[""1001"", ""1002"", ""3001"", ""4001"", ""4002""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Delta | Black Friday"", ""Delta | Retargeting"", ""Gama | Always On""]",3,1184
+"[""Marca Delta"", ""Marca Zeta""]","[""4001"", ""6001""]","[""Delta | Black Friday"", ""Zeta | Performance""]",2,1184
+"[""Marca Beta"", ""Marca Delta"", ""Marca Gama""]","[""2001"", ""2002"", ""3001"", ""4001"", ""4002""]","[""Beta | Lançamento"", ""Beta | Prospecting"", ""Delta | Black Friday"", ""Delta | Retargeting"", ""Gama | Always On""]",3,1147
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Gama""]","[""1001"", ""2002"", ""3001""]","[""Alpha | Awareness | Q3"", ""Beta | Lançamento"", ""Gama | Always On""]",3,1147
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Gama""]","[""1001"", ""2001"", ""3001""]","[""Alpha | Awareness | Q3"", ""Beta | Prospecting"", ""Gama | Always On""]",3,1147
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta""]","[""1001"", ""1002"", ""2001"", ""2002"", ""4001"", ""4002""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Beta | Lançamento"", ""Beta | Prospecting"", ""Delta | Black Friday"", ""Delta | Retargeting""]",3,962
+"[""Marca Delta"", ""Marca Gama"", ""Marca Épsilon""]","[""3001"", ""4001"", ""4002"", ""5001""]","[""Delta | Black Friday"", ""Delta | Retargeting"", ""Gama | Always On"", ""Épsilon | Awareness""]",3,925
+"[""Marca Alpha"", ""Marca Delta"", ""Marca Gama""]","[""1001"", ""3001"", ""4001"", ""4002""]","[""Alpha | Awareness | Q3"", ""Delta | Black Friday"", ""Delta | Retargeting"", ""Gama | Always On""]",3,925
+"[""Marca Alpha"", ""Marca Delta"", ""Marca Gama""]","[""1002"", ""3001"", ""4001"", ""4002""]","[""Alpha | Remarketing"", ""Delta | Black Friday"", ""Delta | Retargeting"", ""Gama | Always On""]",3,888
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Gama""]","[""1002"", ""2002"", ""3001""]","[""Alpha | Remarketing"", ""Beta | Lançamento"", ""Gama | Always On""]",3,888
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Épsilon""]","[""1001"", ""1002"", ""2001"", ""5001""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Beta | Prospecting"", ""Épsilon | Awareness""]",3,851
+"[""Marca Beta"", ""Marca Delta"", ""Marca Gama""]","[""2001"", ""2002"", ""3001"", ""4002""]","[""Beta | Lançamento"", ""Beta | Prospecting"", ""Delta | Retargeting"", ""Gama | Always On""]",3,851
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Épsilon""]","[""1002"", ""2001"", ""2002"", ""5001""]","[""Alpha | Remarketing"", ""Beta | Lançamento"", ""Beta | Prospecting"", ""Épsilon | Awareness""]",3,851
+"[""Marca Alpha"", ""Marca Gama"", ""Marca Épsilon""]","[""1001"", ""1002"", ""3001"", ""5001""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Gama | Always On"", ""Épsilon | Awareness""]",3,851
+"[""Marca Alpha"", ""Marca Delta"", ""Marca Gama""]","[""1001"", ""3001"", ""4001""]","[""Alpha | Awareness | Q3"", ""Delta | Black Friday"", ""Gama | Always On""]",3,814
+"[""Marca Alpha"", ""Marca Delta"", ""Marca Gama""]","[""1001"", ""1002"", ""3001"", ""4001""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Delta | Black Friday"", ""Gama | Always On""]",3,814
+"[""Marca Beta"", ""Marca Delta"", ""Marca Gama""]","[""2001"", ""3001"", ""4001"", ""4002""]","[""Beta | Prospecting"", ""Delta | Black Friday"", ""Delta | Retargeting"", ""Gama | Always On""]",3,814
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Épsilon""]","[""1001"", ""2001"", ""5001""]","[""Alpha | Awareness | Q3"", ""Beta | Prospecting"", ""Épsilon | Awareness""]",3,814
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Gama""]","[""1002"", ""2001"", ""3001""]","[""Alpha | Remarketing"", ""Beta | Prospecting"", ""Gama | Always On""]",3,777
+"[""Marca Alpha"", ""Marca Delta"", ""Marca Gama""]","[""1002"", ""3001"", ""4001""]","[""Alpha | Remarketing"", ""Delta | Black Friday"", ""Gama | Always On""]",3,740
+"[""Marca Beta"", ""Marca Delta"", ""Marca Gama""]","[""2001"", ""2002"", ""3001"", ""4001""]","[""Beta | Lançamento"", ""Beta | Prospecting"", ""Delta | Black Friday"", ""Gama | Always On""]",3,740
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta""]","[""1002"", ""2001"", ""2002"", ""4001"", ""4002""]","[""Alpha | Remarketing"", ""Beta | Lançamento"", ""Beta | Prospecting"", ""Delta | Black Friday"", ""Delta | Retargeting""]",3,740
+"[""Marca Alpha"", ""Marca Delta"", ""Marca Gama""]","[""1001"", ""3001"", ""4002""]","[""Alpha | Awareness | Q3"", ""Delta | Retargeting"", ""Gama | Always On""]",3,703
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Épsilon""]","[""1001"", ""2001"", ""2002"", ""5001""]","[""Alpha | Awareness | Q3"", ""Beta | Lançamento"", ""Beta | Prospecting"", ""Épsilon | Awareness""]",3,703
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta""]","[""1001"", ""1002"", ""2001"", ""2002"", ""4001""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Beta | Lançamento"", ""Beta | Prospecting"", ""Delta | Black Friday""]",3,703
+"[""Marca Beta"", ""Marca Delta"", ""Marca Gama""]","[""2002"", ""3001"", ""4001"", ""4002""]","[""Beta | Lançamento"", ""Delta | Black Friday"", ""Delta | Retargeting"", ""Gama | Always On""]",3,703
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta""]","[""1001"", ""1002"", ""2002"", ""4001"", ""4002""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Beta | Lançamento"", ""Delta | Black Friday"", ""Delta | Retargeting""]",3,666
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Épsilon""]","[""1002"", ""2001"", ""5001""]","[""Alpha | Remarketing"", ""Beta | Prospecting"", ""Épsilon | Awareness""]",3,629
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta""]","[""1001"", ""2002"", ""4001"", ""4002""]","[""Alpha | Awareness | Q3"", ""Beta | Lançamento"", ""Delta | Black Friday"", ""Delta | Retargeting""]",3,629
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta""]","[""1001"", ""1002"", ""2001"", ""2002"", ""4002""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Beta | Lançamento"", ""Beta | Prospecting"", ""Delta | Retargeting""]",3,592
+"[""Marca Beta"", ""Marca Delta"", ""Marca Gama""]","[""2002"", ""3001"", ""4002""]","[""Beta | Lançamento"", ""Delta | Retargeting"", ""Gama | Always On""]",3,592
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta""]","[""1001"", ""1002"", ""2002"", ""4002""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Beta | Lançamento"", ""Delta | Retargeting""]",3,592
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Épsilon""]","[""1001"", ""1002"", ""2002"", ""5001""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Beta | Lançamento"", ""Épsilon | Awareness""]",3,592
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta""]","[""1001"", ""1002"", ""2001"", ""4001"", ""4002""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Beta | Prospecting"", ""Delta | Black Friday"", ""Delta | Retargeting""]",3,592
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Zeta""]","[""1001"", ""1002"", ""2001"", ""2002"", ""6001""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Beta | Lançamento"", ""Beta | Prospecting"", ""Zeta | Performance""]",3,592
+"[""Marca Alpha"", ""Marca Delta"", ""Marca Gama""]","[""1002"", ""3001"", ""4002""]","[""Alpha | Remarketing"", ""Delta | Retargeting"", ""Gama | Always On""]",3,592
+"[""Marca Delta"", ""Marca Gama"", ""Marca Épsilon""]","[""3001"", ""4001"", ""5001""]","[""Delta | Black Friday"", ""Gama | Always On"", ""Épsilon | Awareness""]",3,555
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Épsilon""]","[""1002"", ""2002"", ""5001""]","[""Alpha | Remarketing"", ""Beta | Lançamento"", ""Épsilon | Awareness""]",3,555
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Zeta""]","[""1002"", ""2001"", ""2002"", ""6001""]","[""Alpha | Remarketing"", ""Beta | Lançamento"", ""Beta | Prospecting"", ""Zeta | Performance""]",3,555
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta""]","[""1002"", ""2001"", ""4001""]","[""Alpha | Remarketing"", ""Beta | Prospecting"", ""Delta | Black Friday""]",3,555
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta""]","[""1001"", ""1002"", ""2002"", ""4001""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Beta | Lançamento"", ""Delta | Black Friday""]",3,518
+"[""Marca Delta"", ""Marca Gama"", ""Marca Zeta""]","[""3001"", ""4001"", ""4002"", ""6001""]","[""Delta | Black Friday"", ""Delta | Retargeting"", ""Gama | Always On"", ""Zeta | Performance""]",3,518
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Épsilon""]","[""1001"", ""2002"", ""5001""]","[""Alpha | Awareness | Q3"", ""Beta | Lançamento"", ""Épsilon | Awareness""]",3,518
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta""]","[""1002"", ""2001"", ""4001"", ""4002""]","[""Alpha | Remarketing"", ""Beta | Prospecting"", ""Delta | Black Friday"", ""Delta | Retargeting""]",3,518
+"[""Marca Delta"", ""Marca Gama"", ""Marca Épsilon""]","[""3001"", ""4002"", ""5001""]","[""Delta | Retargeting"", ""Gama | Always On"", ""Épsilon | Awareness""]",3,518
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta""]","[""1002"", ""2001"", ""4002""]","[""Alpha | Remarketing"", ""Beta | Prospecting"", ""Delta | Retargeting""]",3,518
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta""]","[""1001"", ""2001"", ""2002"", ""4001""]","[""Alpha | Awareness | Q3"", ""Beta | Lançamento"", ""Beta | Prospecting"", ""Delta | Black Friday""]",3,481
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta""]","[""1001"", ""2001"", ""2002"", ""4001"", ""4002""]","[""Alpha | Awareness | Q3"", ""Beta | Lançamento"", ""Beta | Prospecting"", ""Delta | Black Friday"", ""Delta | Retargeting""]",3,481
+"[""Marca Alpha"", ""Marca Gama"", ""Marca Épsilon""]","[""1001"", ""3001"", ""5001""]","[""Alpha | Awareness | Q3"", ""Gama | Always On"", ""Épsilon | Awareness""]",3,481
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta""]","[""1002"", ""2002"", ""4001"", ""4002""]","[""Alpha | Remarketing"", ""Beta | Lançamento"", ""Delta | Black Friday"", ""Delta | Retargeting""]",3,481
+"[""Marca Beta"", ""Marca Delta"", ""Marca Gama""]","[""2001"", ""3001"", ""4002""]","[""Beta | Prospecting"", ""Delta | Retargeting"", ""Gama | Always On""]",3,481
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Zeta""]","[""1001"", ""1002"", ""2001"", ""6001""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Beta | Prospecting"", ""Zeta | Performance""]",3,481
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Zeta""]","[""1001"", ""1002"", ""2002"", ""6001""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Beta | Lançamento"", ""Zeta | Performance""]",3,481
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta""]","[""1001"", ""2001"", ""4001"", ""4002""]","[""Alpha | Awareness | Q3"", ""Beta | Prospecting"", ""Delta | Black Friday"", ""Delta | Retargeting""]",3,444
+"[""Marca Beta"", ""Marca Delta"", ""Marca Gama""]","[""2001"", ""3001"", ""4001""]","[""Beta | Prospecting"", ""Delta | Black Friday"", ""Gama | Always On""]",3,444
+"[""Marca Delta"", ""Marca Gama"", ""Marca Zeta""]","[""3001"", ""4001"", ""6001""]","[""Delta | Black Friday"", ""Gama | Always On"", ""Zeta | Performance""]",3,407
+"[""Marca Beta"", ""Marca Gama"", ""Marca Épsilon""]","[""2001"", ""2002"", ""3001"", ""5001""]","[""Beta | Lançamento"", ""Beta | Prospecting"", ""Gama | Always On"", ""Épsilon | Awareness""]",3,407
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta""]","[""1002"", ""2002"", ""4002""]","[""Alpha | Remarketing"", ""Beta | Lançamento"", ""Delta | Retargeting""]",3,407
+"[""Marca Alpha"", ""Marca Gama"", ""Marca Zeta""]","[""1002"", ""3001"", ""6001""]","[""Alpha | Remarketing"", ""Gama | Always On"", ""Zeta | Performance""]",3,407
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta""]","[""1002"", ""2001"", ""2002"", ""4002""]","[""Alpha | Remarketing"", ""Beta | Lançamento"", ""Beta | Prospecting"", ""Delta | Retargeting""]",3,407
+"[""Marca Beta"", ""Marca Gama"", ""Marca Zeta""]","[""2001"", ""2002"", ""3001"", ""6001""]","[""Beta | Lançamento"", ""Beta | Prospecting"", ""Gama | Always On"", ""Zeta | Performance""]",3,407
+"[""Marca Beta"", ""Marca Delta"", ""Marca Gama""]","[""2002"", ""3001"", ""4001""]","[""Beta | Lançamento"", ""Delta | Black Friday"", ""Gama | Always On""]",3,407
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Zeta""]","[""1001"", ""2001"", ""2002"", ""6001""]","[""Alpha | Awareness | Q3"", ""Beta | Lançamento"", ""Beta | Prospecting"", ""Zeta | Performance""]",3,370
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Zeta""]","[""1001"", ""2001"", ""6001""]","[""Alpha | Awareness | Q3"", ""Beta | Prospecting"", ""Zeta | Performance""]",3,370
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta""]","[""1001"", ""1002"", ""2001"", ""4002""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Beta | Prospecting"", ""Delta | Retargeting""]",3,370
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta""]","[""1001"", ""2001"", ""4002""]","[""Alpha | Awareness | Q3"", ""Beta | Prospecting"", ""Delta | Retargeting""]",3,370
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta""]","[""1001"", ""2001"", ""2002"", ""4002""]","[""Alpha | Awareness | Q3"", ""Beta | Lançamento"", ""Beta | Prospecting"", ""Delta | Retargeting""]",3,370
+"[""Marca Beta"", ""Marca Gama"", ""Marca Épsilon""]","[""2001"", ""3001"", ""5001""]","[""Beta | Prospecting"", ""Gama | Always On"", ""Épsilon | Awareness""]",3,370
+"[""Marca Alpha"", ""Marca Gama"", ""Marca Zeta""]","[""1001"", ""1002"", ""3001"", ""6001""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Gama | Always On"", ""Zeta | Performance""]",3,370
+"[""Marca Alpha"", ""Marca Delta"", ""Marca Zeta""]","[""1001"", ""1002"", ""4001"", ""4002"", ""6001""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Delta | Black Friday"", ""Delta | Retargeting"", ""Zeta | Performance""]",3,370
+"[""Marca Alpha"", ""Marca Delta"", ""Marca Épsilon""]","[""1001"", ""4001"", ""4002"", ""5001""]","[""Alpha | Awareness | Q3"", ""Delta | Black Friday"", ""Delta | Retargeting"", ""Épsilon | Awareness""]",3,333
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta""]","[""1001"", ""2001"", ""4001""]","[""Alpha | Awareness | Q3"", ""Beta | Prospecting"", ""Delta | Black Friday""]",3,333
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta"", ""Marca Gama""]","[""1001"", ""1002"", ""2002"", ""3001"", ""4001"", ""4002""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Beta | Lançamento"", ""Delta | Black Friday"", ""Delta | Retargeting"", ""Gama | Always On""]",4,333
+"[""Marca Alpha"", ""Marca Delta"", ""Marca Épsilon""]","[""1001"", ""1002"", ""4002"", ""5001""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Delta | Retargeting"", ""Épsilon | Awareness""]",3,333
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta""]","[""1001"", ""2002"", ""4001""]","[""Alpha | Awareness | Q3"", ""Beta | Lançamento"", ""Delta | Black Friday""]",3,296
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta"", ""Marca Gama""]","[""1002"", ""2002"", ""3001"", ""4001"", ""4002""]","[""Alpha | Remarketing"", ""Beta | Lançamento"", ""Delta | Black Friday"", ""Delta | Retargeting"", ""Gama | Always On""]",4,296
+"[""Marca Alpha"", ""Marca Delta"", ""Marca Épsilon""]","[""1001"", ""1002"", ""4001"", ""5001""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Delta | Black Friday"", ""Épsilon | Awareness""]",3,296
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta""]","[""1002"", ""2001"", ""2002"", ""4001""]","[""Alpha | Remarketing"", ""Beta | Lançamento"", ""Beta | Prospecting"", ""Delta | Black Friday""]",3,296
+"[""Marca Beta"", ""Marca Delta"", ""Marca Épsilon""]","[""2001"", ""2002"", ""4001"", ""4002"", ""5001""]","[""Beta | Lançamento"", ""Beta | Prospecting"", ""Delta | Black Friday"", ""Delta | Retargeting"", ""Épsilon | Awareness""]",3,296
+"[""Marca Alpha"", ""Marca Gama"", ""Marca Épsilon""]","[""1002"", ""3001"", ""5001""]","[""Alpha | Remarketing"", ""Gama | Always On"", ""Épsilon | Awareness""]",3,296
+"[""Marca Gama"", ""Marca Zeta"", ""Marca Épsilon""]","[""3001"", ""5001"", ""6001""]","[""Gama | Always On"", ""Zeta | Performance"", ""Épsilon | Awareness""]",3,296
+"[""Marca Alpha"", ""Marca Gama"", ""Marca Zeta""]","[""1001"", ""3001"", ""6001""]","[""Alpha | Awareness | Q3"", ""Gama | Always On"", ""Zeta | Performance""]",3,259
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta"", ""Marca Gama""]","[""1001"", ""1002"", ""2001"", ""2002"", ""3001"", ""4001"", ""4002""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Beta | Lançamento"", ""Beta | Prospecting"", ""Delta | Black Friday"", ""Delta | Retargeting"", ""Gama | Always On""]",4,259
+"[""Marca Alpha"", ""Marca Delta"", ""Marca Épsilon""]","[""1002"", ""4001"", ""4002"", ""5001""]","[""Alpha | Remarketing"", ""Delta | Black Friday"", ""Delta | Retargeting"", ""Épsilon | Awareness""]",3,259
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta"", ""Marca Gama""]","[""1001"", ""2002"", ""3001"", ""4002""]","[""Alpha | Awareness | Q3"", ""Beta | Lançamento"", ""Delta | Retargeting"", ""Gama | Always On""]",4,259
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Zeta""]","[""1001"", ""2002"", ""6001""]","[""Alpha | Awareness | Q3"", ""Beta | Lançamento"", ""Zeta | Performance""]",3,259
+"[""Marca Alpha"", ""Marca Delta"", ""Marca Épsilon""]","[""1002"", ""4002"", ""5001""]","[""Alpha | Remarketing"", ""Delta | Retargeting"", ""Épsilon | Awareness""]",3,222
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Zeta""]","[""1002"", ""2001"", ""6001""]","[""Alpha | Remarketing"", ""Beta | Prospecting"", ""Zeta | Performance""]",3,222
+"[""Marca Alpha"", ""Marca Delta"", ""Marca Épsilon""]","[""1001"", ""1002"", ""4001"", ""4002"", ""5001""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Delta | Black Friday"", ""Delta | Retargeting"", ""Épsilon | Awareness""]",3,222
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta"", ""Marca Gama""]","[""1001"", ""1002"", ""2001"", ""3001"", ""4001""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Beta | Prospecting"", ""Delta | Black Friday"", ""Gama | Always On""]",4,222
+"[""Marca Beta"", ""Marca Gama"", ""Marca Zeta""]","[""2001"", ""3001"", ""6001""]","[""Beta | Prospecting"", ""Gama | Always On"", ""Zeta | Performance""]",3,222
+"[""Marca Alpha"", ""Marca Delta"", ""Marca Épsilon""]","[""1001"", ""4001"", ""5001""]","[""Alpha | Awareness | Q3"", ""Delta | Black Friday"", ""Épsilon | Awareness""]",3,222
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta"", ""Marca Gama""]","[""1002"", ""2001"", ""2002"", ""3001"", ""4002""]","[""Alpha | Remarketing"", ""Beta | Lançamento"", ""Beta | Prospecting"", ""Delta | Retargeting"", ""Gama | Always On""]",4,222
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta""]","[""1001"", ""1002"", ""2001"", ""4001""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Beta | Prospecting"", ""Delta | Black Friday""]",3,222
+"[""Marca Beta"", ""Marca Delta"", ""Marca Épsilon""]","[""2001"", ""2002"", ""4001"", ""5001""]","[""Beta | Lançamento"", ""Beta | Prospecting"", ""Delta | Black Friday"", ""Épsilon | Awareness""]",3,222
+"[""Marca Beta"", ""Marca Gama"", ""Marca Épsilon""]","[""2002"", ""3001"", ""5001""]","[""Beta | Lançamento"", ""Gama | Always On"", ""Épsilon | Awareness""]",3,222
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Zeta""]","[""1002"", ""2002"", ""6001""]","[""Alpha | Remarketing"", ""Beta | Lançamento"", ""Zeta | Performance""]",3,222
+"[""Marca Beta"", ""Marca Delta"", ""Marca Épsilon""]","[""2002"", ""4001"", ""5001""]","[""Beta | Lançamento"", ""Delta | Black Friday"", ""Épsilon | Awareness""]",3,222
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta"", ""Marca Gama""]","[""1001"", ""2001"", ""2002"", ""3001"", ""4001""]","[""Alpha | Awareness | Q3"", ""Beta | Lançamento"", ""Beta | Prospecting"", ""Delta | Black Friday"", ""Gama | Always On""]",4,222
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta""]","[""1002"", ""2002"", ""4001""]","[""Alpha | Remarketing"", ""Beta | Lançamento"", ""Delta | Black Friday""]",3,222
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta"", ""Marca Gama""]","[""1001"", ""2001"", ""2002"", ""3001"", ""4002""]","[""Alpha | Awareness | Q3"", ""Beta | Lançamento"", ""Beta | Prospecting"", ""Delta | Retargeting"", ""Gama | Always On""]",4,222
+"[""Marca Beta"", ""Marca Zeta"", ""Marca Épsilon""]","[""2001"", ""2002"", ""5001"", ""6001""]","[""Beta | Lançamento"", ""Beta | Prospecting"", ""Zeta | Performance"", ""Épsilon | Awareness""]",3,185
+"[""Marca Beta"", ""Marca Delta"", ""Marca Épsilon""]","[""2002"", ""4001"", ""4002"", ""5001""]","[""Beta | Lançamento"", ""Delta | Black Friday"", ""Delta | Retargeting"", ""Épsilon | Awareness""]",3,185
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta""]","[""1001"", ""2002"", ""4002""]","[""Alpha | Awareness | Q3"", ""Beta | Lançamento"", ""Delta | Retargeting""]",3,185
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta"", ""Marca Gama""]","[""1001"", ""1002"", ""2001"", ""2002"", ""3001"", ""4001""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Beta | Lançamento"", ""Beta | Prospecting"", ""Delta | Black Friday"", ""Gama | Always On""]",4,185
+"[""Marca Alpha"", ""Marca Delta"", ""Marca Zeta""]","[""1001"", ""1002"", ""4002"", ""6001""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Delta | Retargeting"", ""Zeta | Performance""]",3,185
+"[""Marca Beta"", ""Marca Zeta"", ""Marca Épsilon""]","[""2001"", ""5001"", ""6001""]","[""Beta | Prospecting"", ""Zeta | Performance"", ""Épsilon | Awareness""]",3,185
+"[""Marca Alpha"", ""Marca Zeta"", ""Marca Épsilon""]","[""1001"", ""1002"", ""5001"", ""6001""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Zeta | Performance"", ""Épsilon | Awareness""]",3,185
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta"", ""Marca Gama""]","[""1001"", ""2001"", ""2002"", ""3001"", ""4001"", ""4002""]","[""Alpha | Awareness | Q3"", ""Beta | Lançamento"", ""Beta | Prospecting"", ""Delta | Black Friday"", ""Delta | Retargeting"", ""Gama | Always On""]",4,185
+"[""Marca Alpha"", ""Marca Delta"", ""Marca Gama"", ""Marca Épsilon""]","[""1001"", ""1002"", ""3001"", ""4001"", ""4002"", ""5001""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Delta | Black Friday"", ""Delta | Retargeting"", ""Gama | Always On"", ""Épsilon | Awareness""]",4,185
+"[""Marca Beta"", ""Marca Gama"", ""Marca Zeta""]","[""2002"", ""3001"", ""6001""]","[""Beta | Lançamento"", ""Gama | Always On"", ""Zeta | Performance""]",3,185
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta"", ""Marca Gama""]","[""1001"", ""1002"", ""2001"", ""2002"", ""3001"", ""4002""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Beta | Lançamento"", ""Beta | Prospecting"", ""Delta | Retargeting"", ""Gama | Always On""]",4,185
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta"", ""Marca Gama""]","[""1001"", ""2001"", ""3001"", ""4001"", ""4002""]","[""Alpha | Awareness | Q3"", ""Beta | Prospecting"", ""Delta | Black Friday"", ""Delta | Retargeting"", ""Gama | Always On""]",4,148
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta"", ""Marca Gama""]","[""1002"", ""2001"", ""2002"", ""3001"", ""4001""]","[""Alpha | Remarketing"", ""Beta | Lançamento"", ""Beta | Prospecting"", ""Delta | Black Friday"", ""Gama | Always On""]",4,148
+"[""Marca Beta"", ""Marca Delta"", ""Marca Zeta""]","[""2001"", ""2002"", ""4001"", ""4002"", ""6001""]","[""Beta | Lançamento"", ""Beta | Prospecting"", ""Delta | Black Friday"", ""Delta | Retargeting"", ""Zeta | Performance""]",3,148
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta"", ""Marca Gama""]","[""1001"", ""2002"", ""3001"", ""4001"", ""4002""]","[""Alpha | Awareness | Q3"", ""Beta | Lançamento"", ""Delta | Black Friday"", ""Delta | Retargeting"", ""Gama | Always On""]",4,148
+"[""Marca Alpha"", ""Marca Delta"", ""Marca Zeta""]","[""1001"", ""4002"", ""6001""]","[""Alpha | Awareness | Q3"", ""Delta | Retargeting"", ""Zeta | Performance""]",3,148
+"[""Marca Beta"", ""Marca Zeta"", ""Marca Épsilon""]","[""2002"", ""5001"", ""6001""]","[""Beta | Lançamento"", ""Zeta | Performance"", ""Épsilon | Awareness""]",3,148
+"[""Marca Delta"", ""Marca Gama"", ""Marca Zeta""]","[""3001"", ""4002"", ""6001""]","[""Delta | Retargeting"", ""Gama | Always On"", ""Zeta | Performance""]",3,148
+"[""Marca Beta"", ""Marca Delta"", ""Marca Gama"", ""Marca Épsilon""]","[""2001"", ""2002"", ""3001"", ""4001"", ""4002"", ""5001""]","[""Beta | Lançamento"", ""Beta | Prospecting"", ""Delta | Black Friday"", ""Delta | Retargeting"", ""Gama | Always On"", ""Épsilon | Awareness""]",4,148
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta"", ""Marca Gama""]","[""1002"", ""2001"", ""3001"", ""4001""]","[""Alpha | Remarketing"", ""Beta | Prospecting"", ""Delta | Black Friday"", ""Gama | Always On""]",4,148
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Gama"", ""Marca Épsilon""]","[""1002"", ""2001"", ""2002"", ""3001"", ""5001""]","[""Alpha | Remarketing"", ""Beta | Lançamento"", ""Beta | Prospecting"", ""Gama | Always On"", ""Épsilon | Awareness""]",4,111
+"[""Marca Alpha"", ""Marca Zeta"", ""Marca Épsilon""]","[""1002"", ""5001"", ""6001""]","[""Alpha | Remarketing"", ""Zeta | Performance"", ""Épsilon | Awareness""]",3,111
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta"", ""Marca Gama""]","[""1002"", ""2002"", ""3001"", ""4002""]","[""Alpha | Remarketing"", ""Beta | Lançamento"", ""Delta | Retargeting"", ""Gama | Always On""]",4,111
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Gama"", ""Marca Épsilon""]","[""1001"", ""1002"", ""2001"", ""3001"", ""5001""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Beta | Prospecting"", ""Gama | Always On"", ""Épsilon | Awareness""]",4,111
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta"", ""Marca Gama""]","[""1002"", ""2002"", ""3001"", ""4001""]","[""Alpha | Remarketing"", ""Beta | Lançamento"", ""Delta | Black Friday"", ""Gama | Always On""]",4,111
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta"", ""Marca Gama""]","[""1001"", ""1002"", ""2001"", ""3001"", ""4002""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Beta | Prospecting"", ""Delta | Retargeting"", ""Gama | Always On""]",4,111
+"[""Marca Beta"", ""Marca Delta"", ""Marca Épsilon""]","[""2001"", ""2002"", ""4002"", ""5001""]","[""Beta | Lançamento"", ""Beta | Prospecting"", ""Delta | Retargeting"", ""Épsilon | Awareness""]",3,111
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta"", ""Marca Gama""]","[""1002"", ""2001"", ""3001"", ""4001"", ""4002""]","[""Alpha | Remarketing"", ""Beta | Prospecting"", ""Delta | Black Friday"", ""Delta | Retargeting"", ""Gama | Always On""]",4,111
+"[""Marca Alpha"", ""Marca Delta"", ""Marca Zeta""]","[""1002"", ""4002"", ""6001""]","[""Alpha | Remarketing"", ""Delta | Retargeting"", ""Zeta | Performance""]",3,111
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Gama"", ""Marca Zeta""]","[""1001"", ""1002"", ""2001"", ""2002"", ""3001"", ""6001""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Beta | Lançamento"", ""Beta | Prospecting"", ""Gama | Always On"", ""Zeta | Performance""]",4,111
+"[""Marca Alpha"", ""Marca Delta"", ""Marca Épsilon""]","[""1001"", ""4002"", ""5001""]","[""Alpha | Awareness | Q3"", ""Delta | Retargeting"", ""Épsilon | Awareness""]",3,111
+"[""Marca Beta"", ""Marca Delta"", ""Marca Zeta""]","[""2001"", ""2002"", ""4001"", ""6001""]","[""Beta | Lançamento"", ""Beta | Prospecting"", ""Delta | Black Friday"", ""Zeta | Performance""]",3,111
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta"", ""Marca Gama""]","[""1001"", ""1002"", ""2002"", ""3001"", ""4002""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Beta | Lançamento"", ""Delta | Retargeting"", ""Gama | Always On""]",4,111
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta"", ""Marca Zeta""]","[""1001"", ""1002"", ""2001"", ""2002"", ""4001"", ""4002"", ""6001""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Beta | Lançamento"", ""Beta | Prospecting"", ""Delta | Black Friday"", ""Delta | Retargeting"", ""Zeta | Performance""]",4,111
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Gama"", ""Marca Zeta""]","[""1002"", ""2002"", ""3001"", ""6001""]","[""Alpha | Remarketing"", ""Beta | Lançamento"", ""Gama | Always On"", ""Zeta | Performance""]",4,111
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Gama"", ""Marca Zeta""]","[""1002"", ""2001"", ""2002"", ""3001"", ""6001""]","[""Alpha | Remarketing"", ""Beta | Lançamento"", ""Beta | Prospecting"", ""Gama | Always On"", ""Zeta | Performance""]",4,111
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Gama"", ""Marca Épsilon""]","[""1001"", ""1002"", ""2001"", ""2002"", ""3001"", ""5001""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Beta | Lançamento"", ""Beta | Prospecting"", ""Gama | Always On"", ""Épsilon | Awareness""]",4,111
+"[""Marca Alpha"", ""Marca Beta"", ""Marca Delta"", ""Marca Épsilon""]","[""1001"", ""1002"", ""2001"", ""4001"", ""4002"", ""5001""]","[""Alpha | Awareness | Q3"", ""Alpha | Remarketing"", ""Beta | Prospecting"", ""Delta | Black Friday"", ""Delta | Retargeting"", ""Épsilon | Awareness""]",4,111
+"[""Marca Beta"", ""Marca Delta"", ""Marca Épsilon""]","[""2001"", ""4001"", ""4002"", ""5001""]","[""Beta | Prospecting"", ""Delta | Black Friday"", ""Delta | Retargeting"", ""Épsilon | Awareness""]",3,111
