@@ -227,6 +227,7 @@ function CountryView({ data, country }: { data: ParsedStates; country: CountryDe
         </header>
         <div className={`map-layout ${country.width / country.height > 1.3 ? "wide" : ""}`}>
           <CountryMap
+            exportAs={`${def.label}${share ? " (% do total)" : ""} por ${view === "state" ? "estado" : "região"} - ${country.name}`}
             country={country}
             mode={view}
             value={(id) => {
@@ -243,6 +244,8 @@ function CountryView({ data, country }: { data: ParsedStates; country: CountryDe
           <div>
             <h3 className="subhead">Ranking</h3>
             <BarList
+              exportAs={`Ranking: ${def.label}${share ? " (% do total)" : ""} por ${view === "state" ? "estado" : "região"} - ${country.name}`}
+              valueName={def.label}
               items={ranking.map((x) => {
                 const v = valueOf(x);
                 return {
@@ -272,6 +275,8 @@ function CountryView({ data, country }: { data: ParsedStates; country: CountryDe
             <p>Estados em ordem de vendas, com a participação acumulada.</p>
           </header>
           <BarList
+            exportAs={`Concentração das vendas - ${country.name}`}
+            valueName="Vendas"
             items={(() => {
               let acc = 0;
               return top
@@ -296,6 +301,7 @@ function CountryView({ data, country }: { data: ParsedStates; country: CountryDe
             <p>100 = vende na proporção da população. Escala logarítmica: 200 (o dobro) e 50 (a metade) ficam à mesma distância do centro.</p>
           </header>
           <IndexBars
+            exportAs={`Índice de vendas vs população - ${country.name}`}
             items={[...withSales]
               .sort((p, q) => penetrationIndex(q, a.total) - penetrationIndex(p, a.total))
               .map((s) => ({ label: `${s.id} · ${s.name}`, value: penetrationIndex(s, a.total), tooltip: areaTooltip(s) }))}
@@ -310,6 +316,8 @@ function CountryView({ data, country }: { data: ParsedStates; country: CountryDe
             <p>Vendas / pedidos. Média geral: {money(ticket(a.total), false)}.</p>
           </header>
           <BarList
+            exportAs={`Ticket médio por estado - ${country.name}`}
+            valueName="Ticket médio"
             items={[...withSales]
               .sort((p, q) => ticket(q.metrics) - ticket(p.metrics))
               .map((s) => ({
@@ -326,6 +334,8 @@ function CountryView({ data, country }: { data: ParsedStates; country: CountryDe
             <p>Quanto das vendas veio de clientes novos para a marca. Média geral: {formatPct(ntbSalesShare(a.total))}.</p>
           </header>
           <BarList
+            exportAs={`% NTB nas vendas por estado - ${country.name}`}
+            valueName="% NTB nas vendas"
             items={[...withSales]
               .sort((p, q) => (ntbSalesShare(q.metrics) || 0) - (ntbSalesShare(p.metrics) || 0))
               .map((s) => ({
@@ -442,6 +452,7 @@ function AdvertiserSection({
         <p>Leia por linha: como as vendas de cada anunciante se dividem entre as regiões.</p>
       </header>
       <Heatmap
+        exportAs={`Anunciantes por região - ${country.name}`}
         labels={stats.map((s) => s.name)}
         colLabels={regionNames}
         value={pct}

@@ -1,5 +1,7 @@
-import type { ReactNode } from "react";
+import { useRef, type ReactNode } from "react";
+import { composeSvg, mixColor, serializeSvg, token, type ChartExport } from "../../lib/chartExport";
 import type { CountryDef } from "../../lib/geo";
+import { ExportMenu } from "../ExportMenu";
 import { useTipProps } from "../Tooltip";
 
 interface Props {
@@ -11,8 +13,9 @@ interface Props {
   tooltip: (id: string) => ReactNode;
   /** Rótulo da legenda (métrica atual). */
   legendLabel: string;
+  /** Título do gráfico nos arquivos baixados. */
+  exportAs: string;
 }
-
 
 /** Intensidade de cada classe (mistura do azul com a superfície), da mais clara à mais escura. */
 const STEPS = [16, 34, 54, 76, 100];
@@ -22,8 +25,9 @@ const STEPS = [16, 34, 54, 76, 100];
  * 5 classes por quantil: um estado muito grande, como SP, não apaga os demais, e com 5 regiões cada uma
  * ganha um tom. No modo região os estados herdam a cor da região e as divisas internas somem.
  */
-export function CountryMap({ country, mode, value, format, tooltip, legendLabel }: Props) {
+export function CountryMap({ country, mode, value, format, tooltip, legendLabel, exportAs }: Props) {
   const tip = useTipProps();
+  const svgRef = useRef<SVGSVGElement>(null);
   const ids = mode === "state" ? country.states.map((s) => s.code) : country.regions.map((r) => r.id);
   const regionOf = new Map(country.states.map((s) => [s.code, s.region]));
   const values = ids.map(value).filter((v) => Number.isFinite(v) && v !== 0);
@@ -44,10 +48,36 @@ export function CountryMap({ country, mode, value, format, tooltip, legendLabel 
   const hasValue = (v: number) => Number.isFinite(v) && v !== 0;
   const strong = (v: number) => hasValue(v) && classOf(v) >= 3;
   const legend = STEPS.map((_, i) => breaks[i]).filter((b, i, arr) => i === 0 || b !== arr[i - 1]);
+  const legendText = (b: number, i: number) =>
+    i < legend.length - 1 ? `${format(b)} a ${format(legend[i + 1])}` : b === max ? format(b) : `${format(b)} a ${format(max)}`;
+  const hasEmpty = ids.some((id) => !hasValue(value(id)));
+
+  const exporter: ChartExport = {
+    svg: () => {
+      const blue = token("--series-1");
+      const surface = token("--surface");
+      const items = legend.map((b, i) => ({ label: legendText(b, i), color: mixColor(blue, surface, STEPS[classOf(b)]) }));
+      if (hasEmpty) items.push({ label: "Sem vendas", color: token("--surface-2") });
+      return composeSvg(exportAs, serializeSvg(svgRef.current!), items);
+    },
+    table: () => {
+      const header = mode === "state" ? ["Sigla", "Estado", "Região", legendLabel] : ["Região", legendLabel];
+      const regionName = (id: string) => country.regions.find((r) => r.id === id)?.name ?? id;
+      const rows =
+        mode === "state"
+          ? country.states.map((st) => [st.code, st.name, regionName(st.region), Number.isFinite(value(st.code)) ? value(st.code) : null])
+          : country.regions.map((r) => [r.name, Number.isFinite(value(r.id)) ? value(r.id) : null]);
+      return { header, rows };
+    },
+  };
 
   return (
     <div className="country-map">
+      <div className="chart-toolbar">
+        <ExportMenu name={exportAs} exporter={exporter} />
+      </div>
       <svg
+        ref={svgRef}
         viewBox={`0 0 ${country.width} ${country.height}`}
         role="img"
         aria-label={`Mapa: ${country.name}, ${legendLabel} por ${mode === "state" ? "estado" : "região"}`}
@@ -83,7 +113,14 @@ export function CountryMap({ country, mode, value, format, tooltip, legendLabel 
               );
             }
             return (
-              <text key={u.code} x={u.label.x} y={u.label.y} textAnchor="middle" dominantBaseline="central" className={`map-label ${strong(v) ? "on-strong" : ""}`}>
+              <text
+                key={u.code}
+                x={u.label.x}
+                y={u.label.y}
+                textAnchor="middle"
+                dominantBaseline="central"
+                className={`map-label ${strong(v) ? "on-strong" : ""}`}
+              >
                 {u.code}
               </text>
             );
@@ -111,15 +148,11 @@ export function CountryMap({ country, mode, value, format, tooltip, legendLabel 
           {legend.map((b, i) => (
             <span key={i} className="map-legend-step">
               <i style={{ background: fillOf(b) }} />
-              {i < legend.length - 1
-                ? `${format(b)} a ${format(legend[i + 1])}`
-                : b === max
-                  ? format(b)
-                  : `${format(b)} a ${format(max)}`}
+              {legendText(b, i)}
             </span>
           ))}
         </div>
-        {ids.some((id) => !hasValue(value(id))) && (
+        {hasEmpty && (
           <span className="map-legend-empty">
             <i /> Sem vendas
           </span>

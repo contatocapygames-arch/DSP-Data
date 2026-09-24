@@ -30,6 +30,20 @@ npm run build    # build de produção em dist/
 O workflow `.github/workflows/deploy-pages.yml` publica no GitHub Pages a cada push em `main`
 (é preciso habilitar Pages com a fonte "GitHub Actions" nas configurações do repositório).
 
+## Padrão dos gráficos
+
+Todo gráfico do site tem o menu **Baixar** com três formatos:
+
+- **PNG** em 2x, para slides;
+- **SVG** vetorial, editável no PowerPoint, Illustrator ou Figma;
+- **Excel (.xlsx)** com os números por trás do gráfico.
+
+Os arquivos saem sempre no tema claro, com o título do gráfico e a legenda, mesmo que a pessoa esteja usando o site no modo escuro.
+
+Isso vale para todos os reports, inclusive os novos: os componentes de gráfico (`BarList`, `IndexBars`, `Heatmap`, `UpSet`, `Venn`,
+`CountryMap`) exigem a prop `exportAs` (título do arquivo) e não compilam sem ela. Um gráfico novo que não use esses componentes deve
+usar `ExportMenu` com um `ChartExport` (`src/lib/chartExport.ts`).
+
 ## Adicionando um report novo
 
 1. Crie `src/reports/<nome>/` com:

@@ -93,7 +93,14 @@ export function VennSection({ advertisers, combos }: Props) {
       ) : (
         <div className="venn-layout">
           <div className="venn-chart">
-            <Venn sets={sets} slots={active.map((s) => s.slot)} regions={regions} tooltip={tooltip} />
+            <Venn
+              sets={sets}
+              slots={active.map((s) => s.slot)}
+              regions={regions}
+              tooltip={tooltip}
+              regionLabel={(mask) => regionName(mask, sets)}
+              exportAs={`Venn: ${sets.join(", ")}`}
+            />
             {sets.length === 3 && (
               <p className="hint">Com 3 anunciantes o tamanho das áreas é aproximado; os números exatos estão na tabela.</p>
             )}
