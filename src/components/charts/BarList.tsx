@@ -1,4 +1,6 @@
 import type { ReactNode } from "react";
+import { barsSvg, composeSvg, token, type ChartExport } from "../../lib/chartExport";
+import { ExportMenu } from "../ExportMenu";
 import { useTipProps } from "../Tooltip";
 
 export interface BarSegment {
@@ -25,10 +27,16 @@ export function BarList({
   items,
   legend,
   layout = "stacked",
+  exportAs,
+  valueName = "Valor",
 }: {
   items: BarItem[];
   legend?: { label: string; series: number }[];
   layout?: "stacked" | "grouped";
+  /** Título do gráfico nos arquivos baixados (PNG, SVG, Excel). Obrigatório: todo gráfico é baixável. */
+  exportAs: string;
+  /** Nome da coluna de valor no Excel quando há uma única série. */
+  valueName?: string;
 }) {
   const tip = useTipProps();
   const finite = (v: number) => (Number.isFinite(v) ? v : 0);
@@ -40,18 +48,58 @@ export function BarList({
       ),
     ) || 1;
 
+  const legendItems = legend && legend.length > 1 ? legend : [];
+  const seriesName = (series: number) => legend?.find((l) => l.series === series)?.label;
+  const exporter: ChartExport = {
+    svg: () => {
+      const color = (n: number) => token(`--series-${n}`);
+      const body = barsSvg(
+        items.map((i) => ({
+          label: i.label,
+          valueLabel: i.valueLabel,
+          values: i.segments.map((sg) => ({ value: sg.value, color: color(sg.series), valueLabel: sg.valueLabel })),
+        })),
+        layout,
+      );
+      return composeSvg(
+        exportAs,
+        body,
+        legendItems.map((l) => ({ label: l.label, color: color(l.series) })),
+      );
+    },
+    table: () => {
+      const keys = [...new Map(items.flatMap((i) => i.segments.map((sg) => [sg.key, sg.series] as const))).entries()];
+      const header = ["Item", ...keys.map(([k, series]) => (keys.length === 1 ? valueName : (seriesName(series) ?? k))), "Rótulo exibido"];
+      return {
+        header,
+        rows: items.map((i) => [
+          i.label,
+          ...keys.map(([k]) => i.segments.find((sg) => sg.key === k)?.value ?? null),
+          i.valueLabel ??
+            i.segments
+              .map((sg) => sg.valueLabel)
+              .filter(Boolean)
+              .join(" / "),
+        ]),
+      };
+    },
+  };
+
   return (
     <div className="bar-list">
-      {legend && legend.length > 1 && (
-        <div className="legend">
-          {legend.map((l) => (
-            <span key={l.label} className="legend-item">
-              <span className={`swatch s${l.series}`} />
-              {l.label}
-            </span>
-          ))}
-        </div>
-      )}
+      <div className="chart-toolbar">
+        {legendItems.length > 0 && (
+          <div className="legend">
+            {legendItems.map((l) => (
+              <span key={l.label} className="legend-item">
+                <span className={`swatch s${l.series}`} />
+                {l.label}
+              </span>
+            ))}
+          </div>
+        )}
+        <ExportMenu name={exportAs} exporter={exporter} />
+      </div>
       {items.map((item) => {
         if (layout === "grouped") {
           return (

@@ -66,6 +66,7 @@ export function AdvertiserOverlapDashboard({ rows }: { rows: OverlapRow[] }) {
             <p>Usuários únicos impactados. Exclusivo = não viu nenhum outro anunciante do arquivo.</p>
           </header>
           <BarList
+            exportAs="Alcance por anunciante"
             legend={[
               { label: "Exclusivo", series: 1 },
               { label: "Compartilhado", series: 2 },
@@ -99,6 +100,7 @@ export function AdvertiserOverlapDashboard({ rows }: { rows: OverlapRow[] }) {
             <p>Quantos usuários foram impactados por 1, 2, 3… anunciantes diferentes.</p>
           </header>
           <BarList
+            exportAs="Anunciantes vistos por usuário"
             items={a.byAdvertiserCount.map((b) => ({
               label: `${b.count} anunciante${b.count > 1 ? "s" : ""}`,
               valueLabel: formatPct(b.users / a.totalUsers),
@@ -140,6 +142,7 @@ export function AdvertiserOverlapDashboard({ rows }: { rows: OverlapRow[] }) {
             </div>
           </header>
           <Heatmap
+            exportAs={mode === "pct" ? "Sobreposição entre pares (% da linha)" : "Sobreposição entre pares (usuários)"}
             labels={matrixAdv.map((x) => x.name)}
             value={(i, j) => (mode === "pct" ? pctOf(i, j) : a.pair[i][j])}
             intensity={(i, j) => (mode === "pct" ? pctOf(i, j) / maxPct : a.pair[i][j] / maxUsers)}
@@ -200,6 +203,7 @@ export function AdvertiserOverlapDashboard({ rows }: { rows: OverlapRow[] }) {
         </header>
         {upsetCombos.length > 0 ? (
           <UpSet
+            exportAs="Combinações exatas de anunciantes"
             sets={upsetSets}
             combos={upsetCombos.map((c) => ({ members: c.advertisers, value: c.users }))}
             tooltip={(k) => {

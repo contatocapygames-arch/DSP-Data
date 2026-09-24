@@ -248,6 +248,7 @@ function PathsTab({ data, seg, touchpoints, lengths, total, groupName, summary, 
           </div>
         </header>
         <Heatmap
+          exportAs={transMode === "pct" ? "Sequência entre pontos de contato (% da linha)" : "Sequência entre pontos de contato (compradores)"}
           labels={touchpointNames}
           value={(i, j) => (transMode === "pct" ? (rowTotals[i] ? transitions[i][j] / rowTotals[i] : 0) : transitions[i][j])}
           intensity={(i, j) => (transMode === "pct" ? (rowTotals[i] ? transitions[i][j] / rowTotals[i] / maxPct : 0) : transitions[i][j] / maxAbs)}
@@ -274,6 +275,8 @@ function PathsTab({ data, seg, touchpoints, lengths, total, groupName, summary, 
 function PositionBarsShare({ touchpoints, total }: { touchpoints: TouchpointStat[]; total: Metrics }) {
   return (
     <BarList
+      exportAs="Pontos de contato nos caminhos com compra"
+      valueName="Compradores"
       items={[...touchpoints]
         .sort((a, b) => b.with.buyers - a.with.buyers)
         .map((t) => ({
@@ -511,6 +514,8 @@ function NtbTab({ data, seg, touchpoints, lengths, total, groupName, summary, ma
 function ShareBars({ touchpoints }: { touchpoints: TouchpointStat[] }) {
   return (
     <BarList
+      exportAs="% NTB nas compras por ponto de contato"
+      valueName="% NTB nas compras"
       items={[...touchpoints]
         .filter((t) => t.with.purchases > 0)
         .sort((a, b) => ntbShare(b.with) - ntbShare(a.with))

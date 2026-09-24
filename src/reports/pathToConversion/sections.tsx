@@ -43,6 +43,8 @@ export function SegmentCompare({ segments, columns, title }: { segments: Segment
         </select>
       </header>
       <BarList
+        exportAs={title}
+        valueName={col.label}
         items={rows.map((s) => {
           const v = col.value(s.metrics, total);
           return {
@@ -88,6 +90,7 @@ export function TouchCompare({
         <p>{description}</p>
       </header>
       <BarList
+        exportAs={title}
         layout="grouped"
         legend={[
           { label: "Com o ponto no caminho", series: 1 },
@@ -139,6 +142,8 @@ export function PositionBars({
         <p>{description}</p>
       </header>
       <BarList
+        exportAs={title}
+        valueName="Compradores"
         items={sorted.map((t) => ({
           label: t.name,
           valueLabel: formatPct(pick(t) / total),
@@ -176,6 +181,7 @@ export function LengthBars({
         <p>{description}</p>
       </header>
       <BarList
+        exportAs={title}
         items={lengths.map((l) => {
           const v = value(l.metrics);
           return {

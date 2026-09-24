@@ -1345,3 +1345,74 @@ tbody tr:hover {
     justify-content: center;
   }
 }
+
+/* Menu de download dos gráficos */
+.chart-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+  min-height: 30px;
+}
+.chart-toolbar .legend {
+  margin-bottom: 0;
+}
+.export-menu {
+  margin-left: auto;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.export-menu details {
+  position: relative;
+}
+.export-menu summary {
+  list-style: none;
+  cursor: pointer;
+  user-select: none;
+}
+.export-menu summary::-webkit-details-marker {
+  display: none;
+}
+.export-menu summary::after {
+  content: " ▾";
+  font-size: 0.7em;
+}
+.btn.small {
+  font-size: 0.8rem;
+  padding: 4px 10px;
+}
+.export-options {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 4px);
+  z-index: 20;
+  min-width: 150px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.14);
+  padding: 4px;
+  display: grid;
+}
+.export-options button {
+  font: inherit;
+  font-size: 0.85rem;
+  text-align: left;
+  background: none;
+  border: 0;
+  color: var(--text-primary);
+  padding: 7px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.export-options button:hover,
+.export-options button:focus-visible {
+  background: var(--surface-2);
+  outline: none;
+}
+.error.small {
+  font-size: 0.75rem;
+}

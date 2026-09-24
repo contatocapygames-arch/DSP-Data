@@ -1,4 +1,6 @@
-import { useMemo, useState, type MouseEvent, type ReactNode } from "react";
+import { useMemo, useRef, useState, type MouseEvent, type ReactNode } from "react";
+import { composeSvg, serializeSvg, type ChartExport } from "../../lib/chartExport";
+import { ExportMenu } from "../ExportMenu";
 import { formatCompact, truncate } from "../../lib/format";
 import { layoutVenn, regionLabelPoints, regionMask } from "../../lib/venn";
 import { useTooltip } from "../Tooltip";
@@ -10,6 +12,10 @@ interface Props {
   /** Usuários por região (bitmask dos conjuntos). */
   regions: Map<number, number>;
   tooltip: (mask: number) => ReactNode;
+  /** Nome legível de cada região (para o Excel). */
+  regionLabel: (mask: number) => string;
+  /** Título do gráfico nos arquivos baixados. */
+  exportAs: string;
 }
 
 const W = 560;
@@ -20,7 +26,8 @@ const setSize = (regions: Map<number, number>, bits: number) =>
   [...regions.entries()].reduce((s, [mask, v]) => ((mask & bits) === bits ? s + v : s), 0);
 
 /** Venn proporcional à área para 2 ou 3 conjuntos; hover em qualquer ponto mostra a região exata. */
-export function Venn({ sets, slots, regions, tooltip }: Props) {
+export function Venn({ sets, slots, regions, tooltip, regionLabel, exportAs }: Props) {
+  const svgRef = useRef<SVGSVGElement>(null);
   const { show, hide } = useTooltip();
   const [hover, setHover] = useState<number>(0);
 
@@ -59,51 +66,72 @@ export function Venn({ sets, slots, regions, tooltip }: Props) {
     else show(e, tooltip(mask));
   };
 
+  const exporter: ChartExport = {
+    // Os nomes já estão ao lado dos círculos; sem legenda extra.
+    svg: () => composeSvg(exportAs, serializeSvg(svgRef.current!)),
+    table: () => {
+      const total = [...regions.values()].reduce((a, b) => a + b, 0);
+      return {
+        header: ["Região", "Usuários", "% da união", ...sets],
+        rows: [...regions.entries()]
+          .filter(([, v]) => v > 0)
+          .sort((a, b) => b[1] - a[1])
+          .map(([mask, v]) => [regionLabel(mask), v, total ? v / total : null, ...sets.map((_, i) => (mask & (1 << i) ? 1 : 0))]),
+      };
+    },
+  };
+
   return (
-    <svg
-      className="venn"
-      viewBox={`0 0 ${W} ${H}`}
-      role="img"
-      aria-label={`Diagrama de Venn: ${sets.join(", ")}`}
-      onMouseMove={onMove}
-      onMouseLeave={() => {
-        setHover(0);
-        hide();
-      }}
-    >
-      {geo.circles.map((c, i) => (
-        <circle
-          key={sets[i]}
-          cx={c.x}
-          cy={c.y}
-          r={Math.max(c.r, 1)}
-          className={`venn-circle v${slots[i]} ${hover & (1 << i) ? "active" : ""}`}
-        />
-      ))}
+    <>
+      <div className="chart-toolbar">
+        <ExportMenu name={exportAs} exporter={exporter} />
+      </div>
+      <svg
+        ref={svgRef}
+        className="venn"
+        viewBox={`0 0 ${W} ${H}`}
+        role="img"
+        aria-label={`Diagrama de Venn: ${sets.join(", ")}`}
+        onMouseMove={onMove}
+        onMouseLeave={() => {
+          setHover(0);
+          hide();
+        }}
+      >
+        {geo.circles.map((c, i) => (
+          <circle
+            key={sets[i]}
+            cx={c.x}
+            cy={c.y}
+            r={Math.max(c.r, 1)}
+            className={`venn-circle v${slots[i]} ${hover & (1 << i) ? "active" : ""}`}
+          />
+        ))}
 
-      {geo.labels.map((l) => (
-        <text key={l.mask} x={l.x} y={l.y} textAnchor="middle" dominantBaseline="central" className="venn-value">
-          {formatCompact(regions.get(l.mask) ?? 0)}
-        </text>
-      ))}
-
-      {geo.circles.map((c, i) => {
-        // Nome do lado de fora: com 2 círculos (lado a lado) fica acima de cada um; com 3, na direção
-        // oposta ao centro do grupo.
-        let dx = c.x - cx;
-        let dy = c.y - cy;
-        const len = Math.hypot(dx, dy);
-        if (geo.circles.length === 2 || len < 1e-6) [dx, dy] = [0, -1];
-        else [dx, dy] = [dx / len, dy / len];
-        const x = Math.min(W - 8, Math.max(8, c.x + dx * (c.r + 14)));
-        const y = Math.min(H - 8, Math.max(12, c.y + dy * (c.r + 14)));
-        const anchor = Math.abs(dx) < 0.35 ? "middle" : dx > 0 ? "start" : "end";
-        return (
-          <text key={`l${i}`} x={x} y={y} textAnchor={anchor} dominantBaseline="central" className="venn-set-label">
-            <tspan className={`venn-key v${slots[i]}`}>●</tspan> {truncate(sets[i], 26)}
+        {geo.labels.map((l) => (
+          <text key={l.mask} x={l.x} y={l.y} textAnchor="middle" dominantBaseline="central" className="venn-value">
+            {formatCompact(regions.get(l.mask) ?? 0)}
           </text>
-        );
-      })}
-    </svg>
+        ))}
+
+        {geo.circles.map((c, i) => {
+          // Nome do lado de fora: com 2 círculos (lado a lado) fica acima de cada um; com 3, na direção
+          // oposta ao centro do grupo.
+          let dx = c.x - cx;
+          let dy = c.y - cy;
+          const len = Math.hypot(dx, dy);
+          if (geo.circles.length === 2 || len < 1e-6) [dx, dy] = [0, -1];
+          else [dx, dy] = [dx / len, dy / len];
+          const x = Math.min(W - 8, Math.max(8, c.x + dx * (c.r + 14)));
+          const y = Math.min(H - 8, Math.max(12, c.y + dy * (c.r + 14)));
+          const anchor = Math.abs(dx) < 0.35 ? "middle" : dx > 0 ? "start" : "end";
+          return (
+            <text key={`l${i}`} x={x} y={y} textAnchor={anchor} dominantBaseline="central" className="venn-set-label">
+              <tspan className={`venn-key v${slots[i]}`}>●</tspan> {truncate(sets[i], 26)}
+            </text>
+          );
+        })}
+      </svg>
+    </>
   );
 }
